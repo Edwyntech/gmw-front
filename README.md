@@ -1,16 +1,22 @@
 # guess_my_w
 
-A new Flutter project.
+L'objectif du projet est de partager les infos sur nous, nos collaborateurs sur une platforme du quiz interactive.
+ 
 
-## Getting Started
+ 
+On peut avoir des question par :
+par W
+par Techno
+par une info personnelle 
+etc
+ 
+On veut pouvoir configurer et alimenter la base de Questions
+ 
+On veut avoir plusieurs modes de question
+une image - plusieurs réponses
+un texte - plusieurs images
+etc.
+L'objectif final est de construire un moteur de quiz et l'utiliser pour partager nos connaissances (tech ou pas tech) ou monter en compétence.
+ 
+GitHub URL: https://github.com/Edwyntech/gmw
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
