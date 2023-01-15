@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:guess_my_w/models/quizz.model.dart';
+import 'package:guess_my_w/services/http_services.dart';
+import 'package:guess_my_w/widgets/question.widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,64 +21,39 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         // primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
+  final HttpServices httpServices = HttpServices();
+
+  List<Quizz>? quizzList;
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.only(top: 100, left: 8, right: 8),
-      child: Wrap(
-        alignment: WrapAlignment.spaceAround,
-        children: [
-          Column(
+  Widget build(BuildContext context) => FutureBuilder(
+      future: httpServices.getQuizzList(),
+      builder: (context, AsyncSnapshot<List<Quizz>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          quizzList = snapshot.data;
+          return Scaffold(
+              body: Column(
             children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                child: Image.network(
-                    "https://www.webmarketing-com.com/wp-content/uploads/2020/10/question-business.jpg"),
-              ),
-              const Text('Question : comment faire pour avoir pour ... ')
+              QuestionWidget(quizz: quizzList![0]),
             ],
-          ),
-          const SizedBox(
-            width: 300,
-            child: Divider(thickness: 2),
-          ),
-          Column(
-            children: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(40)),
-                  onPressed: () => {},
-                  child: const Text('Reponse 1')),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(40)),
-                  onPressed: () => {},
-                  child: const Text('Reponse 2')),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(40)),
-                  onPressed: () => {},
-                  child: const Text('Reponse 3')),
-            ],
-          )
-        ],
-      ),
-    ));
-  }
+          ));
+        } else {
+          return Text('Loading ...');
+        }
+      });
 }

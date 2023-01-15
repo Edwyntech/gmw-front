@@ -1,22 +1,37 @@
+import 'package:guess_my_w/models/answer.model.dart';
+
+import 'Question.model.dart';
+import 'answer.model.dart';
+
 class Quizz {
-  Question? question;
-  List<Answers>? answers;
+  Question question;
+  List<Answer> answers = [];
 
-  Quizz({this.question, this.answers});
+  Quizz({required this.question, required this.answers});
 
-  Quizz.fromJson(Map<String, dynamic> json) {
-    question =
-        json['question'] != null ? Question.fromJson(json['question']) : null;
-    if (json['answers'] != null) {
-      answers = <Answers>[];
-      json['answers'].forEach((v) {
-        answers!.add(new Answers.fromJson(v));
-      });
-    }
-  }
+  Quizz.fromJson(Map<String, dynamic> json)
+      : question = Question.fromJson(json['question']),
+        answers = buildAnswers(json);
+  // <Answer>[],
+  //    json['answers'].forEach((v) {
+  //   answers!.add(Answer.fromJson(v));
+  // });
+
+  // Quizz.fromJson(Map<String, dynamic> json) {
+  //   answers = [];
+  //   question = Question.fromJson(json['question']);
+  //   if (json['answers'] != null) {
+  //     answers = <Answer>[];
+  //     json['answers'].forEach((v) {
+  //       answers!.add(Answer.fromJson(v));
+  //     });
+  //   } else {
+  //     answers = [];
+  //   }
+  // }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (question != null) {
       data['question'] = question!.toJson();
     }
@@ -27,43 +42,15 @@ class Quizz {
   }
 }
 
-class Question {
-  int? id;
-  String? value;
-  String? imageUrl;
-
-  Question({this.id, this.value, this.imageUrl});
-
-  Question.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    value = json['value'];
-    imageUrl = json['imageUrl'];
+buildAnswers(Map<String, dynamic> json) {
+  List<Answer> answers = [];
+  if (json['answers'] != null) {
+    answers = <Answer>[];
+    json['answers'].forEach((v) {
+      answers!.add(Answer.fromJson(v));
+    });
+  } else {
+    answers = [];
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = id;
-    data['value'] = value;
-    data['imageUrl'] = imageUrl;
-    return data;
-  }
-}
-
-class Answers {
-  int? id;
-  String? value;
-
-  Answers({this.id, this.value});
-
-  Answers.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    value = json['value'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = id;
-    data['value'] = value;
-    return data;
-  }
+  return answers;
 }
