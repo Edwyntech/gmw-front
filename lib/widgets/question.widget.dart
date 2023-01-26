@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:guess_my_w/models/quizz.model.dart';
 import '../services/http_services.dart';
 import 'answer.widget.dart';
@@ -18,6 +17,7 @@ class QuestionWidget extends StatefulWidget {
 
 class _QuestionWidgetState extends State<QuestionWidget> {
   final HttpServices httpServices = HttpServices();
+
   var defaultImage =
       "https://www-practiceportuguese-com.exactdn.com/wp-content/uploads/2020/06/asking-questions.jpg?strip=all&lossy=1&ssl=1";
 
@@ -47,11 +47,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   quizz: widget.quizz, answer: widget.quizz.answers[index]);
             },
           )),
-          OutlinedButton.icon(
-              onPressed: () => {},
-              icon: const FaIcon(FontAwesomeIcons.circleChevronRight,
-                  color: Colors.redAccent),
-              label: const Text(''))
         ],
       ),
     );

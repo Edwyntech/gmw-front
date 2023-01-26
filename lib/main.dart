@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:guess_my_w/models/quizz.model.dart';
-import 'package:guess_my_w/services/http_services.dart';
-import 'package:guess_my_w/widgets/question.widget.dart';
+import 'package:guess_my_w/widgets/quizz.widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,39 +18,51 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         // primarySwatch: Colors.blue,
       ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-
-  final String title;
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final HttpServices httpServices = HttpServices();
-
-  List<Quizz>? quizzList;
-
-  @override
-  Widget build(BuildContext context) => FutureBuilder(
-      future: httpServices.getQuizzList(),
-      builder: (context, AsyncSnapshot<List<Quizz>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          quizzList = snapshot.data;
-          return Scaffold(
-              body: Column(
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/w.jpeg"),
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.topCenter),
+        ),
+        margin: const EdgeInsets.all(40),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              QuestionWidget(quizz: quizzList![0]),
+              TextFormField(
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Saisir votre nom',
+                ),
+              ),
+              Container(
+                  margin: const EdgeInsets.only(top: 40),
+                  child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const QuizzWidget(title: "Quizz")),
+                        );
+                      },
+                      child: const Text('Commencer')))
             ],
-          ));
-        } else {
-          return Text('Loading ...');
-        }
-      });
+          ),
+        ),
+      ),
+    );
+  }
 }
