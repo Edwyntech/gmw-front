@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guess_my_w/models/quizz.model.dart';
+import 'package:guess_my_w/models/question.with.answers.model.dart';
 import '../services/http_services.dart';
 import 'answer.widget.dart';
 
@@ -7,9 +7,11 @@ class QuestionWidget extends StatefulWidget {
   QuestionWidget({
     Key? key,
     required this.quizz,
+    required this.userName,
   }) : super(key: key);
 
-  Quizz quizz;
+  QuestionWithAnswers quizz;
+  String userName;
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -44,7 +46,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             itemCount: widget.quizz.answers.length,
             itemBuilder: (context, index) {
               return AnswerWidget(
-                  quizz: widget.quizz, answer: widget.quizz.answers[index]);
+                  quizz: widget.quizz, answer: widget.quizz.answers[index], userName: widget.userName);
             },
           )),
         ],
