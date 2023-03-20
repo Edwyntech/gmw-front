@@ -24,60 +24,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class HomePage extends StatefulWidget {
-// const HomePage({super.key});
-//
-// @override
-// State<HomePage> createState() => _FavoriteWidgetState();
-//
-//   final HttpServices httpServices = HttpServices();
-//   late String? userName;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         decoration: const BoxDecoration(
-//           image: DecorationImage(
-//               image: AssetImage("assets/images/w.jpeg"),
-//               fit: BoxFit.scaleDown,
-//               alignment: Alignment.topCenter),
-//         ),
-//         margin: const EdgeInsets.all(40),
-//         child: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               TextFormField(
-//                 decoration: const InputDecoration(
-//                   border: UnderlineInputBorder(),
-//                   labelText: 'Saisir votre nom',
-//                 ),
-//                 onSaved: (String? value) {
-//                   userName = value;
-//                 },
-//               ),
-//               Container(
-//                   margin: const EdgeInsets.only(top: 40),
-//                   child: OutlinedButton(
-//                       onPressed: () {
-//                         httpServices.addUserName(userName ?? 'default');
-//                         Navigator.push(
-//                           context,
-//                           MaterialPageRoute(
-//                               builder: (context) =>
-//                                   const QuizzWidget(title: "Quizz")),
-//                         );
-//                       },
-//                       child: const Text('Commencer')))
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
