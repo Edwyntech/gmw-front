@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guess_my_w/services/http_services.dart';
 import 'package:guess_my_w/widgets/quizz.widget.dart';
 
 void main() {
@@ -23,8 +24,19 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
+
+
+  @override
+  State<HomePage> createState() => _HomePageWidgetState();
+}
+
+class _HomePageWidgetState extends State<HomePage> {
+  final HttpServices httpServices = HttpServices();
+   String? userName = "test";
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +58,19 @@ class HomePage extends StatelessWidget {
                   border: UnderlineInputBorder(),
                   labelText: 'Saisir votre nom',
                 ),
+                onChanged: (String? value) {
+                  userName = value;
+                },
               ),
               Container(
                   margin: const EdgeInsets.only(top: 40),
                   child: OutlinedButton(
                       onPressed: () {
+                        httpServices.addUserName(userName ?? 'default');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const QuizzWidget(title: "Quizz")),
+                              builder: (context) => QuizzWidget(title: "Quizz", userName: userName ?? 'default')),
                         );
                       },
                       child: const Text('Commencer')))
