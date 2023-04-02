@@ -10,12 +10,12 @@ class AnswerWidget extends StatefulWidget {
     Key? key,
     required this.quizz,
     required this.answer,
-    required this.userName,
+    required this.userEmail,
   }) : super(key: key);
 
   final QuestionWithAnswers quizz;
   final Answer answer;
-  final String userName;
+  final String userEmail;
 
   @override
   State<AnswerWidget> createState() => _AnswerWidgetState();
@@ -39,7 +39,7 @@ class _AnswerWidgetState extends State<AnswerWidget> {
           answered = true;
           AnswerCheckModel chosenAnswer;
           chosenAnswer =
-              AnswerCheckModel(widget.quizz.question.id, widget.answer.id, widget.userName);
+              AnswerCheckModel(widget.quizz.question.id, widget.answer.id, widget.userEmail);
           httpServices.verifyAnswer(chosenAnswer).then((value) {
             setState(() {
               validAnswer = value;

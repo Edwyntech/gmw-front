@@ -7,11 +7,11 @@ class QuestionWidget extends StatefulWidget {
   QuestionWidget({
     Key? key,
     required this.quizz,
-    required this.userName,
+    required this.userEmail,
   }) : super(key: key);
 
   QuestionWithAnswers quizz;
-  String userName;
+  String userEmail;
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -46,7 +46,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             itemCount: widget.quizz.answers.length,
             itemBuilder: (context, index) {
               return AnswerWidget(
-                  quizz: widget.quizz, answer: widget.quizz.answers[index], userName: widget.userName);
+                  quizz: widget.quizz, answer: widget.quizz.answers[index], userEmail: widget.userEmail);
             },
           )),
         ],

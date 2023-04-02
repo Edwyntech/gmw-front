@@ -5,6 +5,8 @@ import 'package:guess_my_w/models/question.with.answers.model.dart';
 import 'package:guess_my_w/models/quiz.model.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/user-add.model.dart';
+
 class HttpServices {
   final String baseUrl = "";
 
@@ -41,12 +43,13 @@ class HttpServices {
     }
   }
 
-  Future<void> addUserName(String userName) async {
-    var url = Uri.http('localhost:8081', '/users/${userName}');
+  Future<void> addUser(UserAddModel userAddModel) async {
+    var url = Uri.http('localhost:8081', '/users');
     var response = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-        });
+        },
+        body: jsonEncode(userAddModel.toJson()));
     //
     // if (response.statusCode == 200) {
     //   var res = jsonDecode(response.body);

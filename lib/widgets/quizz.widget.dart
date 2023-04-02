@@ -8,10 +8,10 @@ import '../models/question.with.answers.model.dart';
 import '../services/http_services.dart';
 
 class QuizzWidget extends StatefulWidget {
-  const QuizzWidget({super.key, required this.title, required this.userName});
+  const QuizzWidget({super.key, required this.title, required this.userEmail});
 
   final String title;
-  final String userName;
+  final String userEmail;
 
   @override
   State<QuizzWidget> createState() => _QuizzWidgetState();
@@ -36,7 +36,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
           return Scaffold(
               body: Column(
             children: [
-              SizedBox(height: 600, child: QuestionWidget(quizz: quizz, userName: widget.userName)),
+              SizedBox(height: 600, child: QuestionWidget(quizz: quizz, userEmail: widget.userEmail)),
               getStepButton()
             ],
           ));

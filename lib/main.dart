@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guess_my_w/models/user-add.model.dart';
 import 'package:guess_my_w/services/http_services.dart';
 import 'package:guess_my_w/widgets/quizz.widget.dart';
 
@@ -36,7 +37,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePage> {
   final HttpServices httpServices = HttpServices();
-   String? userName = "test";
+   String? firstName = "testFirstName";
+   String? lastName = "testLastName";
+   String? email = "testEmail";
 
   @override
   Widget build(BuildContext context) {
@@ -56,21 +59,41 @@ class _HomePageWidgetState extends State<HomePage> {
               TextFormField(
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Saisir votre nom',
+                  labelText: 'Prénom',
                 ),
                 onChanged: (String? value) {
-                  userName = value;
+                  firstName = value;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Nom',
+                ),
+                onChanged: (String? value) {
+                  lastName = value;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Email',
+                ),
+                onChanged: (String? value) {
+                  email = value;
                 },
               ),
               Container(
                   margin: const EdgeInsets.only(top: 40),
                   child: OutlinedButton(
                       onPressed: () {
-                        httpServices.addUserName(userName ?? 'default');
+                        httpServices.addUser(new UserAddModel(firstName ?? '',
+                            lastName ?? '',
+                            email ?? ''));
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => QuizzWidget(title: "Quizz", userName: userName ?? 'default')),
+                              builder: (context) => QuizzWidget(title: "Quizz", userEmail: email ?? 'default')),
                         );
                       },
                       child: const Text('Commencer')))
