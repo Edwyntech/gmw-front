@@ -30,16 +30,16 @@ class HomePage extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-
   @override
   State<HomePage> createState() => _HomePageWidgetState();
 }
 
 class _HomePageWidgetState extends State<HomePage> {
   final HttpServices httpServices = HttpServices();
-   String? firstName = "testFirstName";
-   String? lastName = "testLastName";
-   String? email = "testEmail";
+  String? firstName = "testFirstName";
+  String? lastName = "testLastName";
+  String? email = "testEmail";
+  bool acceptSharingEmail = false;
 
   @override
   Widget build(BuildContext context) {
@@ -83,19 +83,32 @@ class _HomePageWidgetState extends State<HomePage> {
                   email = value;
                 },
               ),
+              Row(children: [
+                Checkbox(
+                    value: acceptSharingEmail,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        acceptSharingEmail = value ?? false;
+                      });
+                    }),
+                const Text("I accept sharing this email")
+              ]),
               Container(
                   margin: const EdgeInsets.only(top: 40),
                   child: OutlinedButton(
-                      onPressed: () {
-                        httpServices.addUser(new UserAddModel(firstName ?? '',
-                            lastName ?? '',
-                            email ?? ''));
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => QuizzWidget(title: "Quizz", userEmail: email ?? 'default')),
-                        );
-                      },
+                      onPressed: acceptSharingEmail
+                          ? () {
+                              httpServices.addUser(UserAddModel(firstName ?? '',
+                                  lastName ?? '', email ?? ''));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => QuizzWidget(
+                                        title: "Quizz",
+                                        userEmail: email ?? 'default')),
+                              );
+                            }
+                          : null,
                       child: const Text('Commencer')))
             ],
           ),
