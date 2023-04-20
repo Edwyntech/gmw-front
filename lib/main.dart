@@ -39,7 +39,8 @@ class _HomePageWidgetState extends State<HomePage> {
   String? firstName = "testFirstName";
   String? lastName = "testLastName";
   String? email = "testEmail";
-  bool acceptSharingEmail = false;
+  bool hasAcceptEmailSharing = false;
+  bool isEmailValid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -75,20 +76,23 @@ class _HomePageWidgetState extends State<HomePage> {
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Email',
-                ),
+                decoration: !isEmailValid
+                    ? const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Email',
+                        errorText: 'Email format is not valid')
+                    : const InputDecoration(
+                        border: UnderlineInputBorder(), labelText: 'Email'),
                 onChanged: (String? value) {
                   email = value;
                 },
               ),
               Row(children: [
                 Checkbox(
-                    value: acceptSharingEmail,
+                    value: hasAcceptEmailSharing,
                     onChanged: (bool? value) {
                       setState(() {
-                        acceptSharingEmail = value ?? false;
+                        hasAcceptEmailSharing = value ?? false;
                       });
                     }),
                 const Text("I accept sharing this email")
@@ -96,17 +100,30 @@ class _HomePageWidgetState extends State<HomePage> {
               Container(
                   margin: const EdgeInsets.only(top: 40),
                   child: OutlinedButton(
-                      onPressed: acceptSharingEmail
+                      onPressed: hasAcceptEmailSharing
                           ? () {
-                              httpServices.addUser(UserAddModel(firstName ?? '',
-                                  lastName ?? '', email ?? ''));
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => QuizzWidget(
-                                        title: "Quizz",
-                                        userEmail: email ?? 'default')),
-                              );
+                              if (RegExp(
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(email ?? '')) {
+                                setState(() {
+                                  isEmailValid = true;
+                                });
+                                httpServices.addUser(UserAddModel(
+                                    firstName ?? '',
+                                    lastName ?? '',
+                                    email ?? ''));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => QuizzWidget(
+                                          title: "Quizz",
+                                          userEmail: email ?? 'default')),
+                                );
+                              } else {
+                                setState(() {
+                                  isEmailValid = false;
+                                });
+                              }
                             }
                           : null,
                       child: const Text('Commencer')))
