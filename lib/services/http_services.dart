@@ -43,6 +43,23 @@ class HttpServices {
     }
   }
 
+  Future<Score> getScore(String userEmail) async {
+    var url = Uri.http('localhost:8081', '/scores/$userEmail');
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var res = Score.fromJson(jsonDecode(response.body));
+        print(res);
+
+        return res;
+      } else {
+        throw "Unable to retreive quiz list";
+      }
+    } catch (e) {
+      throw "Unable to check Response ";
+    }
+  }
+
   Future<void> addUser(UserAddModel userAddModel) async {
     var url = Uri.http('localhost:8081', '/users');
     var response = await http.post(url,
@@ -59,3 +76,5 @@ class HttpServices {
     // }
   }
 }
+
+
