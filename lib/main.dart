@@ -43,6 +43,7 @@ class _HomePageWidgetState extends State<HomePage> {
   String? email = "testEmail";
   bool hasAcceptEmailSharing = false;
   bool isEmailValid = true;
+  bool isCheckboxValid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +51,8 @@ class _HomePageWidgetState extends State<HomePage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/w.jpeg"),
-              fit: BoxFit.scaleDown,
+              image: AssetImage("assets/images/w.png"),
+              fit: BoxFit.contain,
               alignment: Alignment.topCenter),
         ),
         margin: const EdgeInsets.all(40),
@@ -90,44 +91,74 @@ class _HomePageWidgetState extends State<HomePage> {
                 },
               ),
               Row(children: [
-                Checkbox(
-                    value: hasAcceptEmailSharing,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasAcceptEmailSharing = value ?? false;
-                      });
-                    }),
-                const Text("I accept sharing this email")
+                FormField<bool>(
+                  builder: (state) {
+                    return Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Checkbox(
+                                value: hasAcceptEmailSharing,
+                                onChanged: (value) {
+                                  setState(() {
+//save checkbox value to variable that store terms and notify form that state changed
+                                    hasAcceptEmailSharing = value ?? false;
+                                    state.didChange(value);
+                                  });
+                                }),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+//save checkbox value to variable that store terms and notify form that state changed
+                                  hasAcceptEmailSharing =
+                                      !hasAcceptEmailSharing;
+                                });
+                              },
+                              child: Text('I accept sharing this email',
+                                  style: TextStyle(
+                                    color: !isCheckboxValid
+                                        ? Theme.of(context).colorScheme.error
+                                        : const Color(0xFF000000),
+                                  )),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          isCheckboxValid ? '' : 'You need to accept terms',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                            fontSize: 12,
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                )
               ]),
               Container(
                   margin: const EdgeInsets.only(top: 40),
                   child: OutlinedButton(
-                      onPressed: hasAcceptEmailSharing
-                          ? () {
-                              if (RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(email ?? '')) {
-                                setState(() {
-                                  isEmailValid = true;
-                                });
-                                httpServices.addUser(UserAddModel(
-                                    firstName ?? '',
-                                    lastName ?? '',
-                                    email ?? ''));
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => QuizzWidget(
-                                          title: "Quizz",
-                                          userEmail: email ?? 'default')),
-                                );
-                              } else {
-                                setState(() {
-                                  isEmailValid = false;
-                                });
-                              }
-                            }
-                          : null,
+                      onPressed: () {
+                        setState(() {
+                          isEmailValid = RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(email ?? '');
+
+                          isCheckboxValid = hasAcceptEmailSharing;
+                        });
+
+                        if (isEmailValid && isCheckboxValid) {
+                          httpServices.addUser(UserAddModel(
+                              firstName ?? '', lastName ?? '', email ?? ''));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => QuizzWidget(
+                                    title: "Quizz",
+                                    userEmail: email ?? 'default')),
+                          );
+                        }
+                      },
                       child: const Text('Commencer')))
             ],
           ),
