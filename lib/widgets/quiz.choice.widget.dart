@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:guess_my_w/widgets/quizz.widget.dart';
 
 import '../main.dart';
@@ -58,11 +59,20 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
                           itemBuilder: (context, index) {
                             return Column(
                               children: <Widget>[
-                                OutlinedButton(
-                                    style: OutlinedButton.styleFrom(
+                                ElevatedButton.icon(
+                                    icon: !snapshot.data![index].done
+                                        ? const FaIcon(FontAwesomeIcons.feather,
+                                            color: Colors.deepOrangeAccent)
+                                        : const FaIcon(FontAwesomeIcons.check,
+                                            color: Colors.white),
+                                    style: ElevatedButton.styleFrom(
+                                        foregroundColor:
+                                            snapshot.data![index].done
+                                                ? Colors.white
+                                                : Colors.deepOrange,
                                         backgroundColor:
                                             snapshot.data![index].done
-                                                ? Colors.lightGreen
+                                                ? Colors.green
                                                 : Colors.white),
                                     onPressed: () {
                                       if (!snapshot.data![index].done) {
@@ -77,7 +87,7 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
                                         );
                                       }
                                     },
-                                    child: Text(
+                                    label: Text(
                                         snapshot.data![index].description +
                                             (snapshot.data![index].done
                                                 ? ' (Completed)'

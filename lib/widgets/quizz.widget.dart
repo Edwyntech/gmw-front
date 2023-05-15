@@ -68,7 +68,9 @@ class _QuizzWidgetState extends State<QuizzWidget> {
                     quizz: quizz,
                     hasBeenValidated: hasBeenValidated,
                     userEmail: widget.userEmail)),
-            OutlinedButton.icon(
+            IconButton(
+                icon: const Icon(FontAwesomeIcons.circleChevronRight),
+                color: Colors.deepOrangeAccent,
                 onPressed: () => {
                       setState(
                         () {
@@ -88,10 +90,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
                           }
                         },
                       )
-                    },
-                icon: const FaIcon(FontAwesomeIcons.circleChevronRight,
-                    color: Colors.redAccent),
-                label: const Text(''))
+                    })
           ],
         ));
   }

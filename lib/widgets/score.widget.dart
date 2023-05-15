@@ -60,7 +60,7 @@ class _ScoreWidgetState extends State<ScoreWidget> {
                 children: [
                   Text(
                     '$myScore/$maxScore' ?? '0',
-                    style: TextStyle(fontSize: 80, color: Colors.orange),
+                    style: TextStyle(fontSize: 80, color: Colors.deepOrange),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 30.0),

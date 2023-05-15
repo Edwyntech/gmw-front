@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:guess_my_w/models/user-add.model.dart';
 import 'package:guess_my_w/services/http_services.dart';
 import 'package:guess_my_w/widgets/quiz.choice.widget.dart';
@@ -15,9 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'GMW',
       theme: ThemeData(
-        colorSchemeSeed: const Color(0xff6750a4),
+        colorSchemeSeed: Colors.deepOrange,
         useMaterial3: true,
         // primarySwatch: Colors.blue,
       ),
@@ -65,7 +66,9 @@ class _HomePageWidgetState extends State<HomePage> {
             children: [
               TextFormField(
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.deepOrange),
+                  ),
                   labelText: 'Prénom',
                 ),
                 onChanged: (String? value) {
@@ -74,7 +77,9 @@ class _HomePageWidgetState extends State<HomePage> {
               ),
               TextFormField(
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.deepOrange),
+                  ),
                   labelText: 'Nom',
                 ),
                 onChanged: (String? value) {
@@ -84,11 +89,16 @@ class _HomePageWidgetState extends State<HomePage> {
               TextFormField(
                 decoration: !isEmailValid
                     ? const InputDecoration(
-                        border: UnderlineInputBorder(),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.deepOrange),
+                        ),
                         labelText: 'Email',
                         errorText: 'Email format is not valid')
                     : const InputDecoration(
-                        border: UnderlineInputBorder(), labelText: 'Email'),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.deepOrange),
+                        ),
+                        labelText: 'Email'),
                 onChanged: (String? value) {
                   email = value;
                 },
@@ -140,7 +150,7 @@ class _HomePageWidgetState extends State<HomePage> {
               ]),
               Container(
                   margin: const EdgeInsets.only(top: 40),
-                  child: OutlinedButton(
+                  child: ElevatedButton.icon(
                       onPressed: () {
                         setState(() {
                           isEmailValid = RegExp(
@@ -164,7 +174,9 @@ class _HomePageWidgetState extends State<HomePage> {
                           });
                         }
                       },
-                      child: const Text('Commencer')))
+                      icon: const FaIcon(FontAwesomeIcons.circlePlay,
+                          color: Colors.deepOrangeAccent),
+                      label: const Text('Commencer')))
             ],
           ),
         ),
