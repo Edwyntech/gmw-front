@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:guess_my_w/models/user-add.model.dart';
 import 'package:guess_my_w/services/http_services.dart';
 import 'package:guess_my_w/widgets/quiz.choice.widget.dart';
-import 'package:guess_my_w/widgets/quizz.widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -81,16 +80,11 @@ class _HomePageWidgetState extends State<HomePage> {
                 },
               ),
               TextFormField(
-                decoration: !isUserEmailUnique || !isEmailValid
-                    ? !isUserEmailUnique
-                        ? const InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'Email',
-                            errorText: 'Email has already been taken')
-                        : const InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'Email',
-                            errorText: 'Email format is not valid')
+                decoration: !isEmailValid
+                    ? const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Email',
+                        errorText: 'Email format is not valid')
                     : const InputDecoration(
                         border: UnderlineInputBorder(), labelText: 'Email'),
                 onChanged: (String? value) {
@@ -159,18 +153,12 @@ class _HomePageWidgetState extends State<HomePage> {
                               .addUser(UserAddModel(
                                   firstName ?? '', lastName ?? '', email ?? ''))
                               .then((statusCode) {
-                            setState(() {
-//save checkbox value to variable that store terms and notify form that state changed
-                              isUserEmailUnique = statusCode == 200;
-                            });
-                            if (isUserEmailUnique) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => QuizChoiceWidget(
-                                        userEmail: email ?? 'default')),
-                              );
-                            }
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => QuizChoiceWidget(
+                                      userEmail: email ?? 'default')),
+                            );
                           });
                         }
                       },

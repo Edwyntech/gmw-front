@@ -2,12 +2,16 @@ import 'package:guess_my_w/models/question.with.answers.model.dart';
 
 class Quiz {
   int id;
+  String description;
+  bool done;
   List<QuestionWithAnswers> questionWithAnswers = [];
 
-  Quiz({required this.id, required this.questionWithAnswers});
+  Quiz({required this.id, required this.description, required this.done, required this.questionWithAnswers});
 
   Quiz.fromJson(Map<String, dynamic> json)
       : id = json['id'],
+        description = json['description'],
+        done = json['done'],
         questionWithAnswers = buildQuestionWithAnswers(json);
 
   Map<String, dynamic> toJson() {

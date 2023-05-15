@@ -27,7 +27,7 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
 
   @override
   Widget build(BuildContext context) => FutureBuilder(
-      future: httpServices.getQuizList(),
+      future: httpServices.getQuizList(widget.userEmail),
       builder: (context, AsyncSnapshot<List<Quiz>> snapshot) {
         return Padding(
           padding:
@@ -42,18 +42,27 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
                   return Column(
                     children: <Widget>[
                       OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                              backgroundColor: snapshot.data![index].done
+                                  ? Colors.lightGreen
+                                  : Colors.white),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => QuizzWidget(
-                                      quiz: snapshot.data![index],
-                                      title: "Quizz",
-                                      userEmail:
-                                          widget.userEmail ?? 'default')),
-                            );
+                            if (!snapshot.data![index].done) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => QuizzWidget(
+                                        quiz: snapshot.data![index],
+                                        title: "Quizz",
+                                        userEmail:
+                                            widget.userEmail ?? 'default')),
+                              );
+                            }
                           },
-                          child: Text(snapshot.data![index].id.toString())),
+                          child: Text(snapshot.data![index].description +
+                              (snapshot.data![index].done
+                                  ? ' (Completed)'
+                                  : ''))),
                       const SizedBox(height: 10)
                     ],
                   );

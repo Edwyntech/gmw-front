@@ -9,8 +9,8 @@ import '../models/user-add.model.dart';
 class HttpServices {
   final String baseUrl = "";
 
-  Future<List<Quiz>> getQuizList() async {
-    var url = Uri.http('localhost:8081', '/quizzes');
+  Future<List<Quiz>> getQuizList(String email) async {
+    var url = Uri.http('localhost:8081', '/quizzes/user/$email');
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {

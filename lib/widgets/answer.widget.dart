@@ -37,7 +37,7 @@ class _AnswerWidgetState extends State<AnswerWidget> {
         style: ElevatedButton.styleFrom(
             backgroundColor: answered
                 ? (validAnswer ? Colors.lightGreen : Colors.red)
-                : null,
+                : Colors.white,
             minimumSize: const Size.fromHeight(40)),
         onPressed: () {
           if (!widget.hasBeenValidated) {
