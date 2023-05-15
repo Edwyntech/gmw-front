@@ -53,6 +53,7 @@ class _HomePageWidgetState extends State<HomePage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
+              opacity: 0.3,
               image: AssetImage("assets/images/w.png"),
               fit: BoxFit.contain,
               alignment: Alignment.topCenter),
