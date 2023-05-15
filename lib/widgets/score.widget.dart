@@ -56,29 +56,32 @@ class _ScoreWidgetState extends State<ScoreWidget> {
             child: SizedBox(
               height: 600.0,
               child: Center(
-                  child: Column(
-                children: [
-                  Text(
-                    '$myScore/$maxScore' ?? '0',
-                    style: TextStyle(fontSize: 80, color: Colors.deepOrange),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 30.0),
-                    child: Text(
-                      myMessage ?? 'default',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
-                    child: Image.asset(
-                      "assets/images/winning.gif",
-                      height: 300.0,
-                      width: 300.0,
-                    ),
-                  ),
-                ],
-              )),
+                  child: snapshot.data == null
+                      ? const Text("Loading...")
+                      : Column(
+                          children: [
+                            Text(
+                              '$myScore/$maxScore' ?? '0',
+                              style: TextStyle(
+                                  fontSize: 80, color: Colors.deepOrange),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 30.0),
+                              child: Text(
+                                myMessage ?? 'default',
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 50.0),
+                              child: Image.asset(
+                                "assets/images/winning.gif",
+                                height: 300.0,
+                                width: 300.0,
+                              ),
+                            ),
+                          ],
+                        )),
             ),
           ),
         );

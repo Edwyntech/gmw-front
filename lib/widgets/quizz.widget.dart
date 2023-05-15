@@ -24,16 +24,19 @@ class QuizzWidget extends StatefulWidget {
 }
 
 class _QuizzWidgetState extends State<QuizzWidget> {
-  late QuestionWithAnswers quizz;
+  late QuestionWithAnswers quizz =
+      widget.quiz.questionWithAnswers[questioinCounter];
   int questioinCounter = 0;
   bool hasBeenValidated = false;
 
+  void onVerifyAnswer(bool isValidated) {
+    setState(() {
+      hasBeenValidated = isValidated;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (questioinCounter < widget.quiz.questionWithAnswers.length) {
-      quizz = widget.quiz.questionWithAnswers[questioinCounter++];
-      hasBeenValidated = false;
-    }
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -66,30 +69,34 @@ class _QuizzWidgetState extends State<QuizzWidget> {
                 height: 600,
                 child: QuestionWidget(
                     quizz: quizz,
+                    onVerifyAnswer: onVerifyAnswer,
                     hasBeenValidated: hasBeenValidated,
                     userEmail: widget.userEmail)),
             IconButton(
                 icon: const Icon(FontAwesomeIcons.circleChevronRight),
                 color: Colors.deepOrangeAccent,
                 onPressed: () => {
-                      setState(
-                        () {
-                          if (questioinCounter <
-                              widget.quiz.questionWithAnswers.length) {
-                            quizz = widget
-                                .quiz.questionWithAnswers[questioinCounter];
-                            hasBeenValidated = false;
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ScoreWidget(
-                                      quizId: widget.quiz.id,
-                                      userEmail: widget.userEmail)),
-                            );
-                          }
-                        },
-                      )
+                      if (hasBeenValidated)
+                        {
+                          setState(
+                            () {
+                              if (++questioinCounter <
+                                  widget.quiz.questionWithAnswers.length) {
+                                quizz = widget
+                                    .quiz.questionWithAnswers[questioinCounter];
+                                hasBeenValidated = false;
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ScoreWidget(
+                                          quizId: widget.quiz.id,
+                                          userEmail: widget.userEmail)),
+                                );
+                              }
+                            },
+                          )
+                        }
                     })
           ],
         ));

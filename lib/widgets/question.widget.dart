@@ -10,11 +10,13 @@ class QuestionWidget extends StatefulWidget {
     required this.quizz,
     required this.hasBeenValidated,
     required this.userEmail,
+    required this.onVerifyAnswer,
   }) : super(key: key);
 
   QuestionWithAnswers quizz;
   String userEmail;
   bool hasBeenValidated;
+  final void Function(bool) onVerifyAnswer;
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -25,12 +27,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   var defaultImage =
       "https://www-practiceportuguese-com.exactdn.com/wp-content/uploads/2020/06/asking-questions.jpg?strip=all&lossy=1&ssl=1";
-
-  void onVerifyAnswer(bool isValidated) {
-    setState(() {
-      widget.hasBeenValidated = isValidated;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +54,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 quizz: widget.quizz,
                 answer: widget.quizz.answers[index],
                 userEmail: widget.userEmail,
-                onVerifyAnswer: onVerifyAnswer,
+                onVerifyAnswer: widget.onVerifyAnswer,
                 hasBeenValidated: widget.hasBeenValidated,
               );
             },
