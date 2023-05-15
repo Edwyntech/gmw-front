@@ -74019,7 +74019,7 @@ A.hs.prototype={
 rO(a){return this.Q9(a)},
 Q9(a){var s=0,r=A.a3(t.pQ),q,p=2,o,n,m,l,k,j,i
 var $async$rO=A.a4(function(b,c){if(b===1){o=c
-s=p}while(true)switch(s){case 0:j=A.aiz("http","localhost:8081","/quizzes/user/"+a,null)
+s=p}while(true)switch(s){case 0:j=A.aiz("http","ec2-35-180-225-250.eu-west-3.compute.amazonaws.com:8081","/quizzes/user/"+a,null)
 p=4
 s=7
 return A.ac(A.au9(j),$async$rO)
@@ -74048,7 +74048,7 @@ return A.a2($async$rO,r)},
 xh(a){return this.aei(a)},
 aei(a){var s=0,r=A.a3(t.y),q,p,o,n
 var $async$xh=A.a4(function(b,c){if(b===1)return A.a0(c,r)
-while(true)switch(s){case 0:o=A.aiz("http","localhost:8081","/quizzes/verify",null)
+while(true)switch(s){case 0:o=A.aiz("http","ec2-35-180-225-250.eu-west-3.compute.amazonaws.com:8081","/quizzes/verify",null)
 n=t.N
 n=A.aC(["Content-Type","application/json; charset=UTF-8"],n,n)
 s=3
@@ -74064,7 +74064,7 @@ Qd(a,b){var s=0,r=A.a3(t.Vm),q,p,o,n
 var $async$rR=A.a4(function(c,d){if(c===1)return A.a0(d,r)
 while(true)switch(s){case 0:o=t.N
 s=3
-return A.ac(A.au9(A.aiz("http","localhost:8081","/users/"+a+"/score",A.aC(["quizId",B.h.k(b)],o,o))),$async$rR)
+return A.ac(A.au9(A.aiz("http","ec2-35-180-225-250.eu-west-3.compute.amazonaws.com:8081","/users/"+a+"/score",A.aC(["quizId",B.h.k(b)],o,o))),$async$rR)
 case 3:n=d
 if(n.b===200){o=B.aA.vz(0,A.anY(A.anD(n.e).c.a.h(0,"charset")).dk(0,n.w),null)
 p=J.ar(o)
@@ -74076,7 +74076,7 @@ return A.a2($async$rR,r)},
 uY(a){return this.a6B(a)},
 a6B(a){var s=0,r=A.a3(t.S),q,p,o
 var $async$uY=A.a4(function(b,c){if(b===1)return A.a0(c,r)
-while(true)switch(s){case 0:p=A.aiz("http","localhost:8081","/users",null)
+while(true)switch(s){case 0:p=A.aiz("http","ec2-35-180-225-250.eu-west-3.compute.amazonaws.com:8081","/users",null)
 o=t.N
 o=A.aC(["Content-Type","application/json; charset=UTF-8"],o,o)
 s=3
