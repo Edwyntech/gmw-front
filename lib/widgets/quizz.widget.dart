@@ -31,7 +31,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
         if (snapshot.connectionState == ConnectionState.done) {
           quiz = snapshot.data?[0];
           if (questioinCounter < quiz!.questionWithAnswers.length) {
-            quizz = quiz!.questionWithAnswers[questioinCounter];
+            quizz = quiz!.questionWithAnswers[questioinCounter++];
           }
           return Scaffold(
               body: Column(
@@ -51,7 +51,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
               setState(
                 () {
                   if (questioinCounter < quiz!.questionWithAnswers.length) {
-                    quizz = quiz!.questionWithAnswers[questioinCounter++];
+                    quizz = quiz!.questionWithAnswers[questioinCounter];
                   } else {
                     Navigator.push(
                       context,
