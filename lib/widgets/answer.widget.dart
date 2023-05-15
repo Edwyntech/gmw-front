@@ -54,9 +54,9 @@ class _AnswerWidgetState extends State<AnswerWidget> {
               setState(() {
                 validAnswer = value;
               });
+              widget.onVerifyAnswer(true);
+              answered = true;
             });
-            widget.onVerifyAnswer(true);
-            answered = true;
           }
         },
         child: Text(widget.answer.value));
