@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-
   final HttpServices httpServices = HttpServices();
+
   HomePage({
     Key? key,
   }) : super(key: key);
@@ -44,6 +44,7 @@ class _HomePageWidgetState extends State<HomePage> {
   bool hasAcceptEmailSharing = false;
   bool isEmailValid = true;
   bool isCheckboxValid = true;
+  bool isUserEmailUnique = true;
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +80,16 @@ class _HomePageWidgetState extends State<HomePage> {
                 },
               ),
               TextFormField(
-                decoration: !isEmailValid
-                    ? const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Email',
-                        errorText: 'Email format is not valid')
+                decoration: !isUserEmailUnique || !isEmailValid
+                    ? !isUserEmailUnique
+                        ? const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'Email',
+                            errorText: 'Email has already been taken')
+                        : const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'Email',
+                            errorText: 'Email format is not valid')
                     : const InputDecoration(
                         border: UnderlineInputBorder(), labelText: 'Email'),
                 onChanged: (String? value) {
@@ -148,15 +154,24 @@ class _HomePageWidgetState extends State<HomePage> {
                         });
 
                         if (isEmailValid && isCheckboxValid) {
-                          httpServices.addUser(UserAddModel(
-                              firstName ?? '', lastName ?? '', email ?? ''));
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => QuizzWidget(
-                                    title: "Quizz",
-                                    userEmail: email ?? 'default')),
-                          );
+                          httpServices
+                              .addUser(UserAddModel(
+                                  firstName ?? '', lastName ?? '', email ?? ''))
+                              .then((statusCode) {
+                            setState(() {
+//save checkbox value to variable that store terms and notify form that state changed
+                              isUserEmailUnique = statusCode == 200;
+                            });
+                            if (isUserEmailUnique) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => QuizzWidget(
+                                        title: "Quizz",
+                                        userEmail: email ?? 'default')),
+                              );
+                            }
+                          });
                         }
                       },
                       child: const Text('Commencer')))

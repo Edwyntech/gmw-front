@@ -57,12 +57,14 @@ class HttpServices {
     }
   }
 
-  Future<void> addUser(UserAddModel userAddModel) async {
+  Future<int> addUser(UserAddModel userAddModel) async {
     var url = Uri.http('localhost:8081', '/users');
     var response = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(userAddModel.toJson()));
+
+    return response.statusCode;
   }
 }
