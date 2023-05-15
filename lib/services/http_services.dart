@@ -1,29 +1,29 @@
 import 'dart:convert';
-
 import 'package:guess_my_w/models/answer-check.model.dart';
-import 'package:guess_my_w/models/question.with.answers.model.dart';
-import 'package:guess_my_w/models/quiz.model.dart';
+import 'package:guess_my_w/models/score.model.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/quiz.model.dart';
 import '../models/user-add.model.dart';
 
 class HttpServices {
   final String baseUrl = "";
 
-  Future<Quiz> getQuizzList() async {
-    var url = Uri.http('localhost:8081', '/quizzes/default');
+  Future<List<Quiz>> getQuizList() async {
+    var url = Uri.http('localhost:8081', '/quizzes');
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        var res = Quiz.fromJson(jsonDecode(response.body));
-        print(res);
+        var res = jsonDecode(response.body)
+            .map<Quiz>((item) => Quiz.fromJson(item))
+            .toList();
 
         return res;
       } else {
         throw "Unable to retreive quiz list";
       }
     } catch (e) {
-      throw "Unable to check Response ";
+      return [];
     }
   }
 
@@ -43,19 +43,21 @@ class HttpServices {
     }
   }
 
-  Future<Score> getScore(String userEmail) async {
-    var url = Uri.http('localhost:8081', '/scores/$userEmail');
-    try {
-      var response = await http.get(url);
-      if (response.statusCode == 200) {
-        var res = Score.fromJson(jsonDecode(response.body));
-        print(res);
-
-        return res;
-      } else {
-        throw "Unable to retreive quiz list";
-      }
-    } catch (e) {
+  Future<Score> getScore(String name, int quizId) async {
+    Map<String, String> headers = {
+      "Accept": "application/json"
+    };
+    Map<String, String> queryParameters = {
+      "quizId": quizId.toString()
+    };
+    var url = Uri.http('localhost:8081', '/users/$name/score', queryParameters);
+    print(url.toString());
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var res = jsonDecode(response.body);
+      print(res);
+      return res;
+    } else {
       throw "Unable to check Response ";
     }
   }
@@ -76,5 +78,3 @@ class HttpServices {
     // }
   }
 }
-
-

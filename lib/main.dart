@@ -20,13 +20,15 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         // primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({
+
+  final HttpServices httpServices = HttpServices();
+  HomePage({
     Key? key,
   }) : super(key: key);
 

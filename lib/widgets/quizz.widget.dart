@@ -26,10 +26,10 @@ class _QuizzWidgetState extends State<QuizzWidget> {
 
   @override
   Widget build(BuildContext context) => FutureBuilder(
-      future: httpServices.getQuizzList(),
-      builder: (context, AsyncSnapshot<Quiz> snapshot) {
+      future: httpServices.getQuizList(),
+      builder: (context, AsyncSnapshot<List<Quiz>> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          quiz = snapshot.data;
+          quiz = snapshot.data?[0];
           if (questioinCounter < quiz!.questionWithAnswers.length) {
             quizz = quiz!.questionWithAnswers[questioinCounter];
           }
