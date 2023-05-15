@@ -29,45 +29,47 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
   Widget build(BuildContext context) => FutureBuilder(
       future: httpServices.getQuizList(widget.userEmail),
       builder: (context, AsyncSnapshot<List<Quiz>> snapshot) {
-        return snapshot.data == null ? const Text("Loading...") : Padding(
+        return Padding(
           padding:
               const EdgeInsets.only(top: 100, left: 8, right: 8, bottom: 8),
           child: Column(
             children: [
-              Expanded(
-                  child: ListView.builder(
-                padding: const EdgeInsets.all(20),
-                itemCount: snapshot.data?.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: <Widget>[
-                      OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                              backgroundColor: snapshot.data![index].done
-                                  ? Colors.lightGreen
-                                  : Colors.white),
-                          onPressed: () {
-                            if (!snapshot.data![index].done) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => QuizzWidget(
-                                        quiz: snapshot.data![index],
-                                        title: "Quizz",
-                                        userEmail:
-                                            widget.userEmail ?? 'default')),
-                              );
-                            }
-                          },
-                          child: Text(snapshot.data![index].description +
-                              (snapshot.data![index].done
-                                  ? ' (Completed)'
-                                  : ''))),
-                      const SizedBox(height: 10)
-                    ],
-                  );
-                },
-              )),
+              snapshot.data == null
+                  ? const Text("Loading...")
+                  : Expanded(
+                      child: ListView.builder(
+                      padding: const EdgeInsets.all(20),
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: <Widget>[
+                            OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                    backgroundColor: snapshot.data![index].done
+                                        ? Colors.lightGreen
+                                        : Colors.white),
+                                onPressed: () {
+                                  if (!snapshot.data![index].done) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => QuizzWidget(
+                                              quiz: snapshot.data![index],
+                                              title: "Quizz",
+                                              userEmail: widget.userEmail ??
+                                                  'default')),
+                                    );
+                                  }
+                                },
+                                child: Text(snapshot.data![index].description +
+                                    (snapshot.data![index].done
+                                        ? ' (Completed)'
+                                        : ''))),
+                            const SizedBox(height: 10)
+                          ],
+                        );
+                      },
+                    )),
             ],
           ),
         );
