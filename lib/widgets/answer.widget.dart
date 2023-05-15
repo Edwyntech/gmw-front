@@ -33,6 +33,11 @@ class _AnswerWidgetState extends State<AnswerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.hasBeenValidated) {
+      setState(() {
+        answered = false;
+      });
+    }
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: answered

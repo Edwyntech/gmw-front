@@ -8,11 +8,13 @@ class QuestionWidget extends StatefulWidget {
   QuestionWidget({
     Key? key,
     required this.quizz,
+    required this.hasBeenValidated,
     required this.userEmail,
   }) : super(key: key);
 
   QuestionWithAnswers quizz;
   String userEmail;
+  bool hasBeenValidated;
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -20,14 +22,13 @@ class QuestionWidget extends StatefulWidget {
 
 class _QuestionWidgetState extends State<QuestionWidget> {
   final HttpServices httpServices = HttpServices();
-  bool hasBeenValidated = false;
 
   var defaultImage =
       "https://www-practiceportuguese-com.exactdn.com/wp-content/uploads/2020/06/asking-questions.jpg?strip=all&lossy=1&ssl=1";
 
   void onVerifyAnswer(bool isValidated) {
     setState(() {
-      hasBeenValidated = isValidated;
+      widget.hasBeenValidated = isValidated;
     });
   }
 
@@ -58,7 +59,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 answer: widget.quizz.answers[index],
                 userEmail: widget.userEmail,
                 onVerifyAnswer: onVerifyAnswer,
-                hasBeenValidated: hasBeenValidated,
+                hasBeenValidated: widget.hasBeenValidated,
               );
             },
           )),

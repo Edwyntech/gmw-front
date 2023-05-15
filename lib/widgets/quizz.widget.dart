@@ -24,18 +24,20 @@ class QuizzWidget extends StatefulWidget {
 class _QuizzWidgetState extends State<QuizzWidget> {
   late QuestionWithAnswers quizz;
   int questioinCounter = 0;
+  bool hasBeenValidated = false;
 
   @override
   Widget build(BuildContext context) {
     if (questioinCounter < widget.quiz.questionWithAnswers.length) {
       quizz = widget.quiz.questionWithAnswers[questioinCounter++];
+      hasBeenValidated = false;
     }
     return Scaffold(
         body: Column(
       children: [
         SizedBox(
             height: 600,
-            child: QuestionWidget(quizz: quizz, userEmail: widget.userEmail)),
+            child: QuestionWidget(quizz: quizz, hasBeenValidated: hasBeenValidated, userEmail: widget.userEmail)),
         OutlinedButton.icon(
             onPressed: () => {
                   setState(
@@ -44,6 +46,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
                           widget.quiz.questionWithAnswers.length) {
                         quizz =
                             widget.quiz.questionWithAnswers[questioinCounter];
+                        hasBeenValidated = false;
                       } else {
                         Navigator.push(
                           context,
