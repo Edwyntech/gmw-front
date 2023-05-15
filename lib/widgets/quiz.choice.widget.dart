@@ -29,7 +29,7 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
   Widget build(BuildContext context) => FutureBuilder(
       future: httpServices.getQuizList(widget.userEmail),
       builder: (context, AsyncSnapshot<List<Quiz>> snapshot) {
-        return Padding(
+        return snapshot.data == null ? const Text("Loading...") : Padding(
           padding:
               const EdgeInsets.only(top: 100, left: 8, right: 8, bottom: 8),
           child: Column(
