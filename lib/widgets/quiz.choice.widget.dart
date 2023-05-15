@@ -1,69 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:guess_my_w/models/question.with.answers.model.dart';
+import 'package:guess_my_w/widgets/quizz.widget.dart';
 
+import '../models/quiz.model.dart';
 import '../services/http_services.dart';
-import 'answer.widget.dart';
 
-class QuestionWidget extends StatefulWidget {
-  QuestionWidget({
+class QuizChoiceWidget extends StatefulWidget {
+  QuizChoiceWidget({
     Key? key,
-    required this.quizz,
     required this.userEmail,
   }) : super(key: key);
 
-  QuestionWithAnswers quizz;
   String userEmail;
 
   @override
-  State<QuestionWidget> createState() => _QuestionWidgetState();
+  State<QuizChoiceWidget> createState() => _QuizChoiceWidgetState();
 }
 
-class _QuestionWidgetState extends State<QuestionWidget> {
+class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
   final HttpServices httpServices = HttpServices();
-  bool hasBeenValidated = false;
 
-  var defaultImage =
-      "https://www-practiceportuguese-com.exactdn.com/wp-content/uploads/2020/06/asking-questions.jpg?strip=all&lossy=1&ssl=1";
-
-  void onVerifyAnswer(bool isValidated) {
+  void onVerifyAnswer(int selectedQuizId) {
     setState(() {
-      hasBeenValidated = isValidated;
+      selectedQuizId = selectedQuizId;
     });
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 100, left: 8, right: 8),
-      child: Column(
-        children: [
-          Container(
-              height: 260,
-              margin: const EdgeInsets.only(bottom: 10),
-              child: widget.quizz.question.imageUrl != ""
-                  ? Image.network(widget.quizz.question.imageUrl)
-                  : Image.network(defaultImage)),
-          Text(widget.quizz.question.value),
-          const SizedBox(
-            width: 300,
-            child: Divider(thickness: 1),
+  Widget build(BuildContext context) => FutureBuilder(
+      future: httpServices.getQuizList(),
+      builder: (context, AsyncSnapshot<List<Quiz>> snapshot) {
+        return Padding(
+          padding:
+              const EdgeInsets.only(top: 100, left: 8, right: 8, bottom: 8),
+          child: Column(
+            children: [
+              Expanded(
+                  child: ListView.builder(
+                padding: const EdgeInsets.all(20),
+                itemCount: snapshot.data?.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: <Widget>[
+                      OutlinedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => QuizzWidget(
+                                      quiz: snapshot.data![index],
+                                      title: "Quizz",
+                                      userEmail:
+                                          widget.userEmail ?? 'default')),
+                            );
+                          },
+                          child: Text(snapshot.data![index].id.toString())),
+                      const SizedBox(height: 10)
+                    ],
+                  );
+                },
+              )),
+            ],
           ),
-          Expanded(
-              child: ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: widget.quizz.answers.length,
-            itemBuilder: (context, index) {
-              return AnswerWidget(
-                quizz: widget.quizz,
-                answer: widget.quizz.answers[index],
-                userEmail: widget.userEmail,
-                onVerifyAnswer: onVerifyAnswer,
-                hasBeenValidated: hasBeenValidated,
-              );
-            },
-          )),
-        ],
-      ),
-    );
-  }
+        );
+      });
 }

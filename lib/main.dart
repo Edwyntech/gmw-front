@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guess_my_w/models/user-add.model.dart';
 import 'package:guess_my_w/services/http_services.dart';
+import 'package:guess_my_w/widgets/quiz.choice.widget.dart';
 import 'package:guess_my_w/widgets/quizz.widget.dart';
 
 void main() {
@@ -166,8 +167,7 @@ class _HomePageWidgetState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => QuizzWidget(
-                                        title: "Quizz",
+                                    builder: (context) => QuizChoiceWidget(
                                         userEmail: email ?? 'default')),
                               );
                             }
