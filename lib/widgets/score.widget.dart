@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:guess_my_w/models/score.model.dart';
+import 'package:guess_my_w/widgets/quiz.choice.widget.dart';
 
+import '../main.dart';
 import '../services/http_services.dart';
 
 class ScoreWidget extends StatefulWidget {
@@ -24,6 +26,31 @@ class _ScoreWidgetState extends State<ScoreWidget> {
         var maxScore = snapshot.data?.maxScore;
         var myMessage = snapshot.data?.text;
         return Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.list),
+              tooltip: 'Quiz selection',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          QuizChoiceWidget(userEmail: widget.userEmail)),
+                );
+              },
+            ),
+            title: const Text(''),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.logout),
+                tooltip: 'Log out',
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
+                },
+              )
+            ],
+          ),
           body: Padding(
             padding: const EdgeInsets.only(top: 250, left: 8, right: 8),
             child: SizedBox(
