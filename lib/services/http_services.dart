@@ -44,18 +44,13 @@ class HttpServices {
   }
 
   Future<Score> getScore(String name, int quizId) async {
-    Map<String, String> headers = {
-      "Accept": "application/json"
-    };
     Map<String, String> queryParameters = {
       "quizId": quizId.toString()
     };
     var url = Uri.http('localhost:8081', '/users/$name/score', queryParameters);
-    print(url.toString());
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      var res = jsonDecode(response.body);
-      print(res);
+      var res = Score.fromJson(jsonDecode(response.body));
       return res;
     } else {
       throw "Unable to check Response ";
@@ -69,12 +64,5 @@ class HttpServices {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(userAddModel.toJson()));
-    //
-    // if (response.statusCode == 200) {
-    //   var res = jsonDecode(response.body);
-    //   return res;
-    // } else {
-    //   throw "Unable to check Response ";
-    // }
   }
 }

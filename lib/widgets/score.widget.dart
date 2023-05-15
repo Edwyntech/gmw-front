@@ -5,7 +5,9 @@ import 'package:guess_my_w/models/score.model.dart';
 import '../services/http_services.dart';
 
 class ScoreWidget extends StatefulWidget {
-  const ScoreWidget({super.key});
+  const ScoreWidget({super.key, required this.userEmail});
+
+  final String userEmail;
 
   @override
   State<ScoreWidget> createState() => _ScoreWidgetState();
@@ -16,10 +18,11 @@ class _ScoreWidgetState extends State<ScoreWidget> {
   final HttpServices httpServices = HttpServices();
   @override
   Widget build(BuildContext context) => FutureBuilder(
-    future: httpServices.getScore("kabermoustapha", 1),
+    future: httpServices.getScore(widget.userEmail, 1),
       builder: (context, AsyncSnapshot<Score> snapshot) {
 
       var myScore = snapshot.data?.score;
+      var maxScore = snapshot.data?.maxScore;
       var myMessage = snapshot.data?.text;
         return Scaffold(
           body: Padding(
@@ -28,7 +31,7 @@ class _ScoreWidgetState extends State<ScoreWidget> {
               height: 600.0,
               child: Center(child: Column(
                 children: [
-                  Text(myScore.toString() ?? '0', style: TextStyle(fontSize: 80, color: Colors.orange),),
+                  Text('$myScore/$maxScore' ?? '0', style: TextStyle(fontSize: 80, color: Colors.orange),),
                   Padding(
                     padding: EdgeInsets.only(top: 30.0),
                     child: Text(myMessage ?? 'default', style: TextStyle(fontSize: 18),),

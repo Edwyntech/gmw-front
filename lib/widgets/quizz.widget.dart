@@ -37,7 +37,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
               body: Column(
             children: [
               SizedBox(height: 600, child: QuestionWidget(quizz: quizz, userEmail: widget.userEmail)),
-              getStepButton()
+              getStepButton(widget)
             ],
           ));
         } else {
@@ -45,7 +45,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
         }
       });
 
-  Widget getStepButton() {
+  Widget getStepButton(QuizzWidget widget) {
     return OutlinedButton.icon(
         onPressed: () => {
               setState(
@@ -56,7 +56,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ScoreWidget()),
+                          builder: (context) => ScoreWidget(userEmail: widget.userEmail)),
                     );
                   }
                 },
