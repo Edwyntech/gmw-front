@@ -8,9 +8,11 @@ import '../models/user-add.model.dart';
 
 class HttpServices {
   final String baseUrl = "";
+  final String backendHost = const String.fromEnvironment('BACKEND_HOST', defaultValue: 'localhost');
+  final String backendPort = const String.fromEnvironment('BACKEND_PORT', defaultValue: '8081');
 
   Future<List<Quiz>> getQuizList(String email) async {
-    var url = Uri.http('localhost:8081', '/quizzes/user/$email');
+    var url = Uri.http('$backendHost:$backendPort', '/quizzes/user/$email');
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
@@ -28,7 +30,7 @@ class HttpServices {
   }
 
   Future<bool> verifyAnswer(AnswerCheckModel answerCheckModel) async {
-    var url = Uri.http('localhost:8081', '/quizzes/verify');
+    var url = Uri.http('$backendHost:$backendPort', '/quizzes/verify');
     var response = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -48,7 +50,7 @@ class HttpServices {
       "email": email.toString(),
       "quizId": quizId.toString(),
     };
-    var url = Uri.http('localhost:8081', '/users/score', queryParameters);
+    var url = Uri.http('$backendHost:$backendPort', '/users/score', queryParameters);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var res = Score.fromJson(jsonDecode(response.body));
@@ -59,7 +61,7 @@ class HttpServices {
   }
 
   Future<int> addUser(UserAddModel userAddModel) async {
-    var url = Uri.http('localhost:8081', '/users');
+    var url = Uri.http('$backendHost:$backendPort', '/users');
     var response = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
