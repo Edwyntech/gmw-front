@@ -27,9 +27,23 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
     });
   }
 
+  Future<List<Quiz>> getQuizzesWithScore() async {
+    final quizList = await this.httpServices.getQuizList(widget.userEmail);
+    return await Future.wait(quizList
+        .map((quiz) async => Quiz(
+            id: quiz.id,
+            description: quiz.description,
+            done: quiz.done,
+            questionWithAnswers: quiz.questionWithAnswers,
+            score: quiz.done
+                ? await httpServices.getScore(widget.userEmail, quiz.id)
+                : null))
+        .toList());
+  }
+
   @override
   Widget build(BuildContext context) => FutureBuilder(
-      future: httpServices.getQuizList(widget.userEmail),
+      future: getQuizzesWithScore(),
       builder: (context, AsyncSnapshot<List<Quiz>> snapshot) {
         return Scaffold(
             appBar: AppBar(
@@ -66,10 +80,9 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
                                         : const FaIcon(FontAwesomeIcons.check,
                                             color: Colors.white),
                                     style: ElevatedButton.styleFrom(
-                                        foregroundColor:
-                                            snapshot.data![index].done
-                                                ? Colors.white
-                                                : Colors.deepOrange,
+                                        foregroundColor: snapshot.data![index].done
+                                            ? Colors.white
+                                            : Colors.deepOrange,
                                         backgroundColor:
                                             snapshot.data![index].done
                                                 ? Colors.green
@@ -90,7 +103,13 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
                                     label: Text(
                                         snapshot.data![index].description +
                                             (snapshot.data![index].done
-                                                ? ' (Completed)'
+                                                ? ' (${snapshot.data![index].score
+                                                            ?.score
+                                                            .toString() ??
+                                                        ''}/${snapshot.data![index].score
+                                                            ?.maxScore
+                                                            .toString() ??
+                                                        ''})'
                                                 : ''))),
                                 const SizedBox(height: 10)
                               ],

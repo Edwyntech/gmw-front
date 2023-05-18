@@ -43,11 +43,12 @@ class HttpServices {
     }
   }
 
-  Future<Score> getScore(String name, int quizId) async {
+  Future<Score> getScore(String email, int quizId) async {
     Map<String, String> queryParameters = {
-      "quizId": quizId.toString()
+      "email": email.toString(),
+      "quizId": quizId.toString(),
     };
-    var url = Uri.http('localhost:8081', '/users/$name/score', queryParameters);
+    var url = Uri.http('localhost:8081', '/users/score', queryParameters);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var res = Score.fromJson(jsonDecode(response.body));

@@ -1,12 +1,14 @@
 import 'package:guess_my_w/models/question.with.answers.model.dart';
+import 'package:guess_my_w/models/score.model.dart';
 
 class Quiz {
   int id;
   String description;
   bool done;
   List<QuestionWithAnswers> questionWithAnswers = [];
+  Score? score;
 
-  Quiz({required this.id, required this.description, required this.done, required this.questionWithAnswers});
+  Quiz({required this.id, required this.description, required this.done, required this.questionWithAnswers, required this.score});
 
   Quiz.fromJson(Map<String, dynamic> json)
       : id = json['id'],
