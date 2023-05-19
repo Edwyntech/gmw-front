@@ -10,7 +10,8 @@ class HttpServices {
   final String baseUrl = "gmw.edwyn.info";
 
   Future<List<Quiz>> getQuizList(String email) async {
-    var url = Uri.https('$baseUrl', '/quizzes/user/$email');
+    Map<String, String> queryParameters = {"email": email.toString()};
+    var url = Uri.https('$baseUrl', '/quizzes/user', queryParameters);
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
