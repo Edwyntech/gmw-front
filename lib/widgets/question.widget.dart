@@ -25,8 +25,7 @@ class QuestionWidget extends StatefulWidget {
 class _QuestionWidgetState extends State<QuestionWidget> {
   final HttpServices httpServices = HttpServices();
 
-  var defaultImage =
-      "https://www-practiceportuguese-com.exactdn.com/wp-content/uploads/2020/06/asking-questions.jpg?strip=all&lossy=1&ssl=1";
+  var defaultImage = "assets/images/asking-questions.webp";
 
   @override
   Widget build(BuildContext context) {

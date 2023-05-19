@@ -52,7 +52,7 @@ class _ScoreWidgetState extends State<ScoreWidget> {
             ],
           ),
           body: Padding(
-            padding: const EdgeInsets.only(top: 250, left: 8, right: 8),
+            padding: const EdgeInsets.only(top: 100, left: 8, right: 8),
             child: SizedBox(
               height: 600.0,
               child: Center(
@@ -66,8 +66,9 @@ class _ScoreWidgetState extends State<ScoreWidget> {
                                   fontSize: 80, color: Colors.deepOrange),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 30.0),
+                              padding: const EdgeInsets.only(top: 30.0, left: 100, right: 100),
                               child: Text(
+                                textAlign: TextAlign.center,
                                 myMessage ?? 'default',
                                 style: TextStyle(fontSize: 18),
                               ),
