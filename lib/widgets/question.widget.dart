@@ -38,7 +38,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               margin: const EdgeInsets.only(bottom: 10),
               child: widget.quizz.question.imageUrl != ""
                   ? Image.network(widget.quizz.question.imageUrl)
-                  : Image.network(defaultImage)),
+                  : Image.asset(defaultImage)),
           Padding(
             padding: EdgeInsets.only(left: 20, right: 20),
             //apply padding to some sides only
