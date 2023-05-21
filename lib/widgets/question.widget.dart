@@ -39,7 +39,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               child: widget.quizz.question.imageUrl != ""
                   ? Image.network(widget.quizz.question.imageUrl)
                   : Image.network(defaultImage)),
-          Text(widget.quizz.question.value),
+          Padding(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            //apply padding to some sides only
+            child:
+                Text(widget.quizz.question.value, textAlign: TextAlign.center),
+          ),
           const SizedBox(
             width: 300,
             child: Divider(thickness: 1),

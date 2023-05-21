@@ -59,6 +59,10 @@ class _AnswerWidgetState extends State<AnswerWidget> {
             });
           }
         },
-        child: Text(widget.answer.value));
+        child: Padding(
+          padding: EdgeInsets.only(left: 20, right: 20),
+          //apply padding to some sides only
+          child: Text(widget.answer.value, textAlign: TextAlign.center),
+        ));
   }
 }

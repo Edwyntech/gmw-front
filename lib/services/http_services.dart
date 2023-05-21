@@ -7,11 +7,11 @@ import '../models/quiz.model.dart';
 import '../models/user-add.model.dart';
 
 class HttpServices {
-  final String baseUrl = "gmw.edwyn.info";
+  final String baseUrl = "ec2-35-180-225-250.eu-west-3.compute.amazonaws.com:8081";
 
   Future<List<Quiz>> getQuizList(String email) async {
     Map<String, String> queryParameters = {"email": email.toString()};
-    var url = Uri.https('$baseUrl', '/quizzes/user', queryParameters);
+    var url = Uri.http('$baseUrl', '/quizzes/user', queryParameters);
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
@@ -29,7 +29,7 @@ class HttpServices {
   }
 
   Future<bool> verifyAnswer(AnswerCheckModel answerCheckModel) async {
-    var url = Uri.https('$baseUrl', '/quizzes/verify');
+    var url = Uri.http('$baseUrl', '/quizzes/verify');
     var response = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -49,7 +49,7 @@ class HttpServices {
       "email": email.toString(),
       "quizId": quizId.toString(),
     };
-    var url = Uri.https('$baseUrl', '/users/score', queryParameters);
+    var url = Uri.http('$baseUrl', '/users/score', queryParameters);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var res = Score.fromJson(jsonDecode(response.body));
@@ -60,7 +60,7 @@ class HttpServices {
   }
 
   Future<int> addUser(UserAddModel userAddModel) async {
-    var url = Uri.https('$baseUrl', '/users');
+    var url = Uri.http('$baseUrl', '/users');
     var response = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
