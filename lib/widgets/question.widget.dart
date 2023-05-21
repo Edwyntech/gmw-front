@@ -54,13 +54,15 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             padding: const EdgeInsets.all(8),
             itemCount: widget.quizz.answers.length,
             itemBuilder: (context, index) {
-              return AnswerWidget(
-                quizz: widget.quizz,
-                answer: widget.quizz.answers[index],
-                userEmail: widget.userEmail,
-                onVerifyAnswer: widget.onVerifyAnswer,
-                hasBeenValidated: widget.hasBeenValidated,
-              );
+              return Padding(
+                  padding: EdgeInsets.only(bottom: 2),
+                  child: AnswerWidget(
+                    quizz: widget.quizz,
+                    answer: widget.quizz.answers[index],
+                    userEmail: widget.userEmail,
+                    onVerifyAnswer: widget.onVerifyAnswer,
+                    hasBeenValidated: widget.hasBeenValidated,
+                  ));
             },
           )),
         ],
