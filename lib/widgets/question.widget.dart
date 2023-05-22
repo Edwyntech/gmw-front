@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guess_my_w/models/question.with.answers.model.dart';
+import 'package:photo_view/photo_view.dart';
 
 import '../services/http_services.dart';
 import 'answer.widget.dart';
@@ -30,15 +31,21 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 100, left: 8, right: 8),
+      padding: const EdgeInsets.only(top: 70, left: 8, right: 8),
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           Container(
               height: 260,
               margin: const EdgeInsets.only(bottom: 10),
               child: widget.quizz.question.imageUrl != ""
-                  ? Image.network(widget.quizz.question.imageUrl)
-                  : Image.asset(defaultImage)),
+                  ? PhotoView(
+                      backgroundDecoration: BoxDecoration(color: Colors.transparent),
+                      imageProvider:
+                          NetworkImage(widget.quizz.question.imageUrl))
+                  : PhotoView(
+                      backgroundDecoration: BoxDecoration(color: Colors.transparent),
+                      imageProvider: AssetImage(defaultImage))),
           Padding(
             padding: EdgeInsets.only(left: 20, right: 20),
             //apply padding to some sides only
