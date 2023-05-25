@@ -26,26 +26,28 @@ class QuestionWidget extends StatefulWidget {
 class _QuestionWidgetState extends State<QuestionWidget> {
   final HttpServices httpServices = HttpServices();
 
-  var defaultImage = "assets/images/asking-questions.webp";
+  var defaultImage = "assets/assets/images/asking-questions.webp";
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 70, left: 8, right: 8),
+      padding: const EdgeInsets.only(top: 10, left: 8, right: 8),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-              height: 260,
+              height: 200,
               margin: const EdgeInsets.only(bottom: 10),
               child: widget.quizz.question.imageUrl != ""
                   ? PhotoView(
-                      backgroundDecoration: BoxDecoration(color: Colors.transparent),
+                      backgroundDecoration:
+                          BoxDecoration(color: Colors.transparent),
                       imageProvider:
                           NetworkImage(widget.quizz.question.imageUrl))
                   : PhotoView(
-                      backgroundDecoration: BoxDecoration(color: Colors.transparent),
-                      imageProvider: AssetImage(defaultImage))),
+                      backgroundDecoration:
+                          BoxDecoration(color: Colors.transparent),
+                      imageProvider: NetworkImage(defaultImage))),
           Padding(
             padding: EdgeInsets.only(left: 20, right: 20),
             //apply padding to some sides only

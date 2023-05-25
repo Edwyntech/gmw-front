@@ -66,7 +66,7 @@ class _ScoreWidgetState extends State<ScoreWidget> {
                                   fontSize: 80, color: Colors.deepOrange),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 30.0, left: 100, right: 100),
+                              padding: const EdgeInsets.only(top: 30.0, left: 30, right: 30),
                               child: Text(
                                 textAlign: TextAlign.center,
                                 myMessage ?? 'default',
@@ -75,8 +75,8 @@ class _ScoreWidgetState extends State<ScoreWidget> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 50.0),
-                              child: Image.asset(
-                                "assets/images/winning.gif",
+                              child: Image.network(
+                                "assets/assets/images/winning.gif",
                                 height: 300.0,
                                 width: 300.0,
                               ),

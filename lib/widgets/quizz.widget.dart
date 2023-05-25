@@ -66,7 +66,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
         body: Column(
           children: [
             SizedBox(
-                height: 600,
+                height: 500,
                 child: QuestionWidget(
                     quizz: quizz,
                     onVerifyAnswer: onVerifyAnswer,
