@@ -9,16 +9,19 @@ class Answer {
     required this.imageUrl,
   });
 
-  Answer.fromJson(Map<String, dynamic> json)
-      : id = json['id'] ?? '',
-        value = json['value'] ?? '',
-        imageUrl = json['imageUrl'] ?? '';
+  factory Answer.fromJson(Map<String, dynamic> json) {
+    return Answer(
+      id: json['id'] is int ? json['id'] : 0,
+      value: json['value'] as String? ?? '',
+      imageUrl: json['imageUrl'] as String? ?? '',
+    );
+  }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['value'] = value;
-    _data['imageUrl'] = imageUrl;
-    return _data;
+    return {
+      'id': id,
+      'value': value,
+      'imageUrl': imageUrl,
+    };
   }
 }

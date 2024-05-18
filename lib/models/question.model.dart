@@ -1,31 +1,51 @@
 class Question {
-  int id;
-  String value;
-  String imageUrl;
+  final int id;
+  final String value;
+  final String imageUrl;
 
-  Question({required this.id, required this.value, required this.imageUrl});
+  Question({
+    required this.id,
+    required this.value,
+    required this.imageUrl,
+  });
 
-  Question.fromJson(Map<String, dynamic> json)
-      : id = json['id'] ?? '',
-        value = json['value'] ?? '',
-        imageUrl = json['imageUrl'] ?? '';
+  factory Question.fromJson(Map<String, dynamic> json) {
+    return Question(
+      id: json['id'] is int ? json['id'] : 0,
+      value: json['value'] as String? ?? '',
+      imageUrl: json['imageUrl'] as String? ?? '',
+    );
+  }
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'value': value, 'imageUrl': imageUrl};
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'value': value,
+      'imageUrl': imageUrl,
+    };
+  }
 }
 
 class User {
   final String name;
   final String email;
 
-  User(this.name, this.email);
+  User({
+    required this.name,
+    required this.email,
+  });
 
-  User.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        email = json['email'];
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      name: json['name'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'email': email,
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'email': email,
+    };
+  }
 }

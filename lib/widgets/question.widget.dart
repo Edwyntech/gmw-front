@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:guess_my_w/models/question.with.answers.model.dart';
 import 'package:photo_view/photo_view.dart';
-
-import '../services/http_services.dart';
-import 'answer.widget.dart';
+import 'package:guess_my_w/services/http_services.dart';
+import 'package:guess_my_w/widgets/answer.widget.dart';
 
 class QuestionWidget extends StatefulWidget {
-  QuestionWidget({
+  const QuestionWidget({
     Key? key,
     required this.quizz,
     required this.hasBeenValidated,
@@ -14,9 +13,9 @@ class QuestionWidget extends StatefulWidget {
     required this.onVerifyAnswer,
   }) : super(key: key);
 
-  QuestionWithAnswers quizz;
-  String userEmail;
-  bool hasBeenValidated;
+  final QuestionWithAnswers quizz;
+  final String userEmail;
+  final bool hasBeenValidated;
   final void Function(bool) onVerifyAnswer;
 
   @override
@@ -26,8 +25,6 @@ class QuestionWidget extends StatefulWidget {
 class _QuestionWidgetState extends State<QuestionWidget> {
   final HttpServices httpServices = HttpServices();
 
-  var defaultImage = "assets/assets/images/asking-questions.webp";
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,46 +32,53 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Container(
-              height: 200,
-              margin: const EdgeInsets.only(bottom: 10),
-              child: widget.quizz.question.imageUrl != ""
-                  ? PhotoView(
-                      backgroundDecoration:
-                          BoxDecoration(color: Colors.transparent),
-                      imageProvider:
-                          NetworkImage(widget.quizz.question.imageUrl))
-                  : PhotoView(
-                      backgroundDecoration:
-                          BoxDecoration(color: Colors.transparent),
-                      imageProvider: NetworkImage(defaultImage))),
-          Padding(
-            padding: EdgeInsets.only(left: 20, right: 20),
-            //apply padding to some sides only
-            child:
-                Text(widget.quizz.question.value, textAlign: TextAlign.center),
-          ),
-          const SizedBox(
-            width: 300,
-            child: Divider(thickness: 1),
-          ),
+          _buildImageContainer(),
+          _buildQuestionText(),
+          const Divider(thickness: 1),
           Expanded(
-              child: ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: widget.quizz.answers.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                  padding: EdgeInsets.only(bottom: 2),
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: widget.quizz.answers.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 2),
                   child: AnswerWidget(
                     quizz: widget.quizz,
                     answer: widget.quizz.answers[index],
                     userEmail: widget.userEmail,
                     onVerifyAnswer: widget.onVerifyAnswer,
                     hasBeenValidated: widget.hasBeenValidated,
-                  ));
-            },
-          )),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildImageContainer() {
+    final imageUrl = widget.quizz.question.imageUrl;
+    return Container(
+      height: 200,
+      margin: const EdgeInsets.only(bottom: 10),
+      child: imageUrl != ""
+          ? PhotoView(
+          backgroundDecoration: BoxDecoration(color: Colors.transparent),
+          imageProvider: NetworkImage(imageUrl))
+          : PhotoView(
+          backgroundDecoration: BoxDecoration(color: Colors.transparent),
+          imageProvider: NetworkImage("assets/assets/images/asking-questions.webp")),
+    );
+  }
+
+  Widget _buildQuestionText() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text(
+        widget.quizz.question.value,
+        textAlign: TextAlign.center,
       ),
     );
   }
