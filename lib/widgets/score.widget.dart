@@ -114,7 +114,7 @@ class _ScoreWidgetState extends State<ScoreWidget> {
               ],
             ),
             body: Padding(
-              padding: const EdgeInsets.only(top: 100, left: 8, right: 8),
+              padding: const EdgeInsets.only(top: 50, left: 8, right: 8),
               child: SizedBox(
                 height: 600.0,
                 child: Column(
@@ -133,7 +133,11 @@ class _ScoreWidgetState extends State<ScoreWidget> {
                     ),
                     const Padding(
                       padding: EdgeInsets.only(top: 50.0),
-                      child: Image(image: AssetImage("assets/images/winning.gif")),
+                      child: SizedBox(
+                        width: 250,
+                        height: 250,
+                        child: Image(image: AssetImage("assets/images/winning.gif")),
+                      ),
                     ),
                   ],
                 ),

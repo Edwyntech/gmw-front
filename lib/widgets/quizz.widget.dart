@@ -33,7 +33,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
   int _remainingSeconds = 0;
   late int questionCounter = 0;
   late QuestionWithAnswers currentQuestion =
-  widget.quiz.questionWithAnswers[questionCounter];
+      widget.quiz.questionWithAnswers[questionCounter];
   bool hasBeenValidated = false;
 
   @override
@@ -87,11 +87,10 @@ class _QuizzWidgetState extends State<QuizzWidget> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                ScoreWidget(
-                  quizId: widget.quiz.id,
-                  userEmail: widget.userEmail,
-                ),
+            builder: (context) => ScoreWidget(
+              quizId: widget.quiz.id,
+              userEmail: widget.userEmail,
+            ),
           ),
         );
       }
@@ -118,37 +117,37 @@ class _QuizzWidgetState extends State<QuizzWidget> {
         title: Text(
             '$_remainingMinutes:${_remainingSeconds.toString().padLeft(2, '0')}',
             style: TextStyle(fontSize: 12) // Change the font size here
+            ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Log out',
+            onPressed: () {
+              _timer?.cancel();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            },
+          ),
+        ],
       ),
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.logout),
-          tooltip: 'Log out',
-          onPressed: () {
-            _timer?.cancel();
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
-          },
-        ),
-      ],
-    ),
-    body: Column(
-    children: [
-    SizedBox(
-    height: 500,
-    child: QuestionWidget(
-    quizz: currentQuestion,
-    onVerifyAnswer: onVerifyAnswer,
-    hasBeenValidated: hasBeenValidated,
-    userEmail: widget.userEmail,
-    ),
-    ),
-    IconButton(
-    icon: const FaIcon(FontAwesomeIcons.circleChevronRight),
-    color: Colors.deepOrangeAccent,
-    onPressed: hasBeenValidated ? navigateToNextQuestionOrScore : null,
-    ),
-    ],
-    ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 500,
+            child: QuestionWidget(
+              quizz: currentQuestion,
+              onVerifyAnswer: onVerifyAnswer,
+              hasBeenValidated: hasBeenValidated,
+              userEmail: widget.userEmail,
+            ),
+          ),
+          IconButton(
+            icon: const FaIcon(FontAwesomeIcons.circleChevronRight),
+            color: Colors.deepOrangeAccent,
+            onPressed: hasBeenValidated ? navigateToNextQuestionOrScore : null,
+          ),
+        ],
+      ),
     );
   }
 }
