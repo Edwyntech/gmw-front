@@ -115,7 +115,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
           },
         ),
         title: Text(
-            '$_remainingMinutes:${_remainingSeconds.toString().padLeft(2, '0')}',
+            '${questionCounter + 1}/${widget.quiz.questionWithAnswers.length} | $_remainingMinutes:${_remainingSeconds.toString().padLeft(2, '0')}',
             style: TextStyle(fontSize: 12) // Change the font size here
             ),
         actions: <Widget>[
@@ -143,7 +143,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
           ),
           IconButton(
             icon: const FaIcon(FontAwesomeIcons.circleChevronRight),
-            color: Colors.deepOrangeAccent,
+            color: Colors.pinkAccent,
             onPressed: hasBeenValidated ? navigateToNextQuestionOrScore : null,
           ),
         ],

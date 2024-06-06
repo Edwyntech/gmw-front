@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'GMW',
       theme: ThemeData(
-        colorSchemeSeed: Colors.deepOrange,
+        colorSchemeSeed: Colors.pinkAccent,
         useMaterial3: true,
         // primarySwatch: Colors.blue,
       ),
@@ -52,7 +52,7 @@ class _HomePageWidgetState extends State<HomePage> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             opacity: 0.3,
-            image: NetworkImage("assets/assets/images/w.png"),
+            image: NetworkImage("assets/assets/images/w1.png"),
             fit: BoxFit.contain,
             alignment: Alignment.topCenter,
           ),
@@ -78,7 +78,7 @@ class _HomePageWidgetState extends State<HomePage> {
     return TextFormField(
       decoration: const InputDecoration(
         border: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.deepOrange),
+          borderSide: BorderSide(color: Colors.pinkAccent),
         ),
         labelText: 'Prénom',
       ),
@@ -94,7 +94,7 @@ class _HomePageWidgetState extends State<HomePage> {
     return TextFormField(
       decoration: const InputDecoration(
         border: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.deepOrange),
+          borderSide: BorderSide(color: Colors.pinkAccent),
         ),
         labelText: 'Nom',
       ),
@@ -110,7 +110,7 @@ class _HomePageWidgetState extends State<HomePage> {
     return TextFormField(
       decoration: InputDecoration(
         border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.deepOrange),
+          borderSide: BorderSide(color: Colors.pinkAccent),
         ),
         labelText: 'Email',
         errorText: isEmailValid ? null : 'Email format is not valid',
@@ -179,7 +179,7 @@ class _HomePageWidgetState extends State<HomePage> {
       child: ElevatedButton.icon(
         onPressed: isEmailValid && isCheckboxValid ? startButtonPressed : null,
         icon: const FaIcon(FontAwesomeIcons.circlePlay,
-            color: Colors.deepOrangeAccent),
+            color: Colors.pinkAccent),
         label: const Text('Commencer'),
       ),
     );

@@ -86,9 +86,9 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
                 return ElevatedButton.icon(
                   icon: quiz.done
                       ? const FaIcon(FontAwesomeIcons.check, color: Colors.white)
-                      : const FaIcon(FontAwesomeIcons.feather, color: Colors.deepOrangeAccent),
+                      : const FaIcon(FontAwesomeIcons.feather, color: Colors.pinkAccent),
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: quiz.done ? Colors.white : Colors.deepOrange,
+                    foregroundColor: quiz.done ? Colors.white : Colors.pinkAccent,
                     backgroundColor: quiz.done ? Colors.green : Colors.white
                   ),
                   onPressed: () {

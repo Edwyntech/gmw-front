@@ -37,9 +37,9 @@ class _AnswerWidgetState extends State<AnswerWidget> {
     }
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        foregroundColor: answered ? Colors.white : Colors.deepOrange,
+        foregroundColor: answered ? Colors.white : Colors.pinkAccent,
         backgroundColor: answered
-            ? (validAnswer ? Colors.green : Colors.deepOrange.shade900)
+            ? (validAnswer ? Colors.green : Colors.pinkAccent.shade700)
             : Colors.white,
         minimumSize: const Size.fromHeight(40),
       ),
