@@ -6,7 +6,7 @@ import '../models/quiz.model.dart';
 import '../models/user-add.model.dart';
 
 class HttpServices {
-  static const String _baseUrl = "gmw.edwyn.info";
+  static const String _baseUrl = "gmw.api.edwyn.info";
 
   Future<List<Quiz>> getQuizList(String email) async {
     final queryParameters = {"email": email};
