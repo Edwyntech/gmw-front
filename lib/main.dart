@@ -44,6 +44,7 @@ class _HomePageWidgetState extends State<HomePage> {
   bool hasAcceptEmailSharing = false;
   bool isEmailValid = true;
   bool isCheckboxValid = true;
+  bool firstValidation = true;
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +118,7 @@ class _HomePageWidgetState extends State<HomePage> {
       ),
       onChanged: (value) {
         setState(() {
+          firstValidation = false;
           email = value;
           isEmailValid = RegExp(
                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -127,48 +129,54 @@ class _HomePageWidgetState extends State<HomePage> {
   }
 
   Widget buildAcceptEmailSharingCheckbox() {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FormField<bool>(
-          builder: (state) {
-            return Row(
-              children: <Widget>[
-                Checkbox(
-                  value: hasAcceptEmailSharing,
-                  onChanged: (value) {
-                    setState(() {
-                      hasAcceptEmailSharing = value ?? false;
-                      isCheckboxValid = hasAcceptEmailSharing;
-                    });
-                  },
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      hasAcceptEmailSharing = !hasAcceptEmailSharing;
-                      isCheckboxValid = hasAcceptEmailSharing;
-                    });
-                  },
-                  child: Text(
-                    'I accept sharing this email',
-                    style: TextStyle(
-                      color: isCheckboxValid
-                          ? Theme.of(context).textTheme.bodyMedium?.color
-                          : Theme.of(context).colorScheme.error,
+        Row(
+          children: [
+            FormField<bool>(
+              builder: (state) {
+                return Row(
+                  children: <Widget>[
+                    Checkbox(
+                      value: hasAcceptEmailSharing,
+                      onChanged: (value) {
+                        setState(() {
+                          hasAcceptEmailSharing = value ?? false;
+                          isCheckboxValid = hasAcceptEmailSharing;
+                        });
+                      },
                     ),
-                  ),
-                ),
-              ],
-            );
-          },
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          hasAcceptEmailSharing = !hasAcceptEmailSharing;
+                          isCheckboxValid = hasAcceptEmailSharing;
+                        });
+                      },
+                      child: Text(
+                        'I accept sharing this email',
+                        style: TextStyle(
+                          color: isCheckboxValid
+                              ? Theme.of(context).textTheme.bodyMedium?.color
+                              : Theme.of(context).colorScheme.error,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
         ),
-        Text(
-          isCheckboxValid ? '' : 'You need to accept terms',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.error,
-            fontSize: 12,
+        if (!isCheckboxValid)
+          Text(
+            'You need to accept terms',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.error,
+              fontSize: 12,
+            ),
           ),
-        ),
       ],
     );
   }
@@ -177,7 +185,7 @@ class _HomePageWidgetState extends State<HomePage> {
     return Container(
       margin: const EdgeInsets.only(top: 40),
       child: ElevatedButton.icon(
-        onPressed: isEmailValid && isCheckboxValid ? startButtonPressed : null,
+        onPressed: !firstValidation && isEmailValid && isCheckboxValid ? startButtonPressed : null,
         icon: const FaIcon(FontAwesomeIcons.circlePlay,
             color: Colors.pinkAccent),
         label: const Text('Commencer'),
