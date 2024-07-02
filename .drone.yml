@@ -1,0 +1,27 @@
+---
+kind: pipeline
+type: exec
+name: default
+platform:
+  os: linux
+  arch: amd64
+steps:
+  - name: Deploy production environment
+    commands:
+      - /usr/bin/flutter/bin/flutter build web --release --web-renderer=html
+      - echo "$SSH_PRIVATE_KEY" | tee ./ssh_private_key > /dev/null
+      - chmod 600 ./ssh_private_key
+      - rsync --archive --delete --rsh="ssh -i ./ssh_private_key" ./build/web/ $SSH_USER@$SSH_HOSTNAME:~/data
+      - ssh -i ./ssh_private_key $SSH_USER@$SSH_HOSTNAME "find ~/data -type d -exec chmod 755 {} \;"
+      - ssh -i ./ssh_private_key $SSH_USER@$SSH_HOSTNAME "find ~/data -type f -exec chmod 644 {} \;"
+      - rm ./ssh_private_key
+    when:
+      branch:
+        - master
+    environment:
+      SSH_USER:
+        from_secret: SSH_USER
+      SSH_HOSTNAME:
+        from_secret: SSH_HOSTNAME
+      SSH_PRIVATE_KEY:
+        from_secret: SSH_PRIVATE_KEY
