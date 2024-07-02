@@ -2,42 +2,46 @@ import 'package:guess_my_w/models/question.with.answers.model.dart';
 import 'package:guess_my_w/models/score.model.dart';
 
 class Quiz {
-  int id;
-  String description;
-  bool done;
-  List<QuestionWithAnswers> questionWithAnswers = [];
-  Score? score;
+  final int id;
+  final String description;
+  final bool done;
+  final List<QuestionWithAnswers> questionWithAnswers;
+  final Score? score;
 
-  Quiz({required this.id, required this.description, required this.done, required this.questionWithAnswers, required this.score});
+  Quiz({
+    required this.id,
+    required this.description,
+    required this.done,
+    required this.questionWithAnswers,
+    required this.score,
+  });
 
-  Quiz.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        description = json['description'],
-        done = json['done'],
-        questionWithAnswers = buildQuestionWithAnswers(json);
+  factory Quiz.fromJson(Map<String, dynamic> json) {
+    return Quiz(
+      id: json['id'],
+      description: json['description'],
+      done: json['done'],
+      questionWithAnswers: _buildQuestionWithAnswers(json),
+      score: json['score'] != null ? Score.fromJson(json['score']) : null,
+    );
+  }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (questionWithAnswers != null) {
-      data['id'] = this.id;
-    }
-    if (questionWithAnswers != null) {
-      data['questionWithAnswers'] =
-          questionWithAnswers!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    return {
+      'id': id,
+      'description': description,
+      'done': done,
+      'questionWithAnswers': questionWithAnswers.map((v) => v.toJson()).toList(),
+      'score': score?.toJson(),
+    };
   }
-}
 
-buildQuestionWithAnswers(Map<String, dynamic> json) {
-  List<QuestionWithAnswers> questionWithAnswers = [];
-  if (json['questionWithAnswers'] != null) {
-    questionWithAnswers = <QuestionWithAnswers>[];
-    json['questionWithAnswers'].forEach((v) {
-      questionWithAnswers!.add(QuestionWithAnswers.fromJson(v));
-    });
-  } else {
-    questionWithAnswers = [];
+  static List<QuestionWithAnswers> _buildQuestionWithAnswers(Map<String, dynamic> json) {
+    if (json['questionWithAnswers'] == null) {
+      return [];
+    }
+    return (json['questionWithAnswers'] as List<dynamic>)
+        .map((item) => QuestionWithAnswers.fromJson(item))
+        .toList();
   }
-  return questionWithAnswers;
 }

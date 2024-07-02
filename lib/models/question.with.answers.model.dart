@@ -1,39 +1,29 @@
-import 'package:guess_my_w/models/answer.model.dart';
-
 import 'question.model.dart';
 import 'answer.model.dart';
 
 class QuestionWithAnswers {
-  Question question;
-  List<Answer> answers = [];
+  final Question question;
+  final List<Answer> answers;
 
-  QuestionWithAnswers({required this.question, required this.answers});
+  QuestionWithAnswers({
+    required this.question,
+    required this.answers,
+  });
 
-  QuestionWithAnswers.fromJson(Map<String, dynamic> json)
-      : question = Question.fromJson(json['question']),
-        answers = buildAnswers(json);
+  factory QuestionWithAnswers.fromJson(Map<String, dynamic> json) {
+    return QuestionWithAnswers(
+      question: Question.fromJson(json['question']),
+      answers: (json['answers'] as List<dynamic>?)
+          ?.map((item) => Answer.fromJson(item))
+          .toList() ??
+          [],
+    );
+  }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (question != null) {
-      data['question'] = question!.toJson();
-    }
-    if (answers != null) {
-      data['answers'] = answers!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    return {
+      'question': question.toJson(),
+      'answers': answers.map((answer) => answer.toJson()).toList(),
+    };
   }
-}
-
-buildAnswers(Map<String, dynamic> json) {
-  List<Answer> answers = [];
-  if (json['answers'] != null) {
-    answers = <Answer>[];
-    json['answers'].forEach((v) {
-      answers!.add(Answer.fromJson(v));
-    });
-  } else {
-    answers = [];
-  }
-  return answers;
 }

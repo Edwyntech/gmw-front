@@ -1,19 +1,27 @@
 class Score {
-  int score;
-  int maxScore;
-  String text;
+  final int score;
+  final int maxScore;
+  final String text;
 
-  Score({required this.score, required this.maxScore, required this.text});
+  Score({
+    required this.score,
+    required this.maxScore,
+    required this.text,
+  });
 
-  Score.fromJson(Map<String, dynamic> json)
-      : score = json['score'],
-        maxScore = json['maxScore'],
-        text = json['text']
-  ;
+  factory Score.fromJson(Map<String, dynamic> json) {
+    return Score(
+      score: json['score'] is int ? json['score'] : 0,
+      maxScore: json['maxScore'] is int ? json['maxScore'] : 0,
+      text: json['text'] as String? ?? '',
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-    'score': score,
-    'maxScore': maxScore,
-    'text': text,
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      'score': score,
+      'maxScore': maxScore,
+      'text': text,
+    };
+  }
 }
