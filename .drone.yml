@@ -9,7 +9,7 @@ steps:
   - name: Install Flutter
     commands:
       - wget --no-verbose https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.2-stable.tar.xz
-      - tar -xf ~/Downloads/flutter_linux_3.22.2-stable.tar.xz -C ./
+      - tar -xf ./flutter_linux_3.22.2-stable.tar.xz -C ./
   - name: Build application
     commands:
       - ./flutter/bin/flutter build web --release --web-renderer=html
