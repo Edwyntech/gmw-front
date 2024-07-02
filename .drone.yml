@@ -10,8 +10,10 @@ steps:
     commands:
       - wget --no-verbose https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.2-stable.tar.xz
       - tar -xf ./flutter_linux_3.22.2-stable.tar.xz -C ./
+      - ./flutter/bin/flutter --version
   - name: Build application
     commands:
+      - ./flutter/bin/flutter --version
       - ./flutter/bin/flutter build web --release --web-renderer=html
   - name: Deploy production environment
     commands:
