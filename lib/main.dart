@@ -127,7 +127,7 @@ class _HomePageWidgetState extends State<HomePage> {
                                       !hasAcceptEmailSharing;
                                 });
                               },
-                              child: Text('I accept to share this email',
+                              child: Text('I accept sharing this email',
                                   style: TextStyle(
                                     color: !isCheckboxValid
                                         ? Theme.of(context).colorScheme.error
