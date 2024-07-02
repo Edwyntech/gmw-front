@@ -6,16 +6,10 @@ platform:
   os: linux
   arch: amd64
 steps:
-  - name: Install Flutter
-    commands:
-      - wget --no-verbose https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.2-stable.tar.xz
-      - tar -xf ./flutter_linux_3.22.2-stable.tar.xz -C ./
-      - ./flutter/bin/flutter pub get
-      - ./flutter/bin/flutter --version
   - name: Build application
     commands:
-      - ./flutter/bin/flutter --version
-      - ./flutter/bin/flutter build web --release --web-renderer=html
+      - flutter pub get
+      - flutter build web --release --web-renderer=html
   - name: Deploy production environment
     commands:
       - echo "$SSH_PRIVATE_KEY" | tee ./ssh_private_key > /dev/null
