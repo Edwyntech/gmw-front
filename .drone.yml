@@ -8,7 +8,7 @@ platform:
 steps:
   - name: Install Flutter
     commands:
-      - wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.2-stable.tar.xz
+      - wget --no-verbose https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.2-stable.tar.xz
       - tar -xf ~/Downloads/flutter_linux_3.22.2-stable.tar.xz -C ./
   - name: Build application
     commands:
