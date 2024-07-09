@@ -116,8 +116,8 @@ class _QuizzWidgetState extends State<QuizzWidget> {
         ),
         title: Text(
             '${questionCounter + 1}/${widget.quiz.questionWithAnswers.length} | $_remainingMinutes:${_remainingSeconds.toString().padLeft(2, '0')}',
-            style: TextStyle(fontSize: 12) // Change the font size here
-            ),
+            style: TextStyle(fontSize: 12)
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.logout),
@@ -132,8 +132,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
       ),
       body: Column(
         children: [
-          SizedBox(
-            height: 500,
+          Expanded(
             child: QuestionWidget(
               quizz: currentQuestion,
               onVerifyAnswer: onVerifyAnswer,
@@ -141,10 +140,13 @@ class _QuizzWidgetState extends State<QuizzWidget> {
               userEmail: widget.userEmail,
             ),
           ),
-          IconButton(
-            icon: const FaIcon(FontAwesomeIcons.circleChevronRight),
-            color: Colors.pinkAccent,
-            onPressed: hasBeenValidated ? navigateToNextQuestionOrScore : null,
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: IconButton(
+              icon: const FaIcon(FontAwesomeIcons.circleChevronRight),
+              color: Colors.pinkAccent,
+              onPressed: hasBeenValidated ? navigateToNextQuestionOrScore : null,
+            ),
           ),
         ],
       ),
