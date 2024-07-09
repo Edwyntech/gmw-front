@@ -185,7 +185,7 @@ class _HomePageWidgetState extends State<HomePage> {
     return Container(
       margin: const EdgeInsets.only(top: 40),
       child: ElevatedButton.icon(
-        onPressed: !firstValidation && isEmailValid && isCheckboxValid ? startButtonPressed : null,
+        onPressed: !firstValidation && isEmailValid && hasAcceptEmailSharing ? startButtonPressed : null,
         icon: const FaIcon(FontAwesomeIcons.circlePlay,
             color: Colors.pinkAccent),
         label: const Text('Commencer'),
