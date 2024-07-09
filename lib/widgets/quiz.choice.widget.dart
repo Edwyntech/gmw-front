@@ -45,9 +45,11 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
       future: getQuizzesWithScore(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(body: const Center(child: CircularProgressIndicator()));
+          return Scaffold(
+              body: const Center(child: CircularProgressIndicator()));
         } else if (snapshot.hasError) {
-          return Scaffold(body: Center(child: Text('Error: ${snapshot.error}')));
+          return Scaffold(
+              body: Center(child: Text('Error: ${snapshot.error}')));
         } else {
           final quizList = snapshot.data ?? [];
           return Scaffold(
@@ -59,7 +61,8 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
                   icon: const Icon(Icons.logout),
                   tooltip: 'Log out',
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   },
                 ),
               ],
@@ -85,12 +88,19 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
                 final quiz = quizList[index];
                 return ElevatedButton.icon(
                   icon: quiz.done
-                      ? const FaIcon(FontAwesomeIcons.check, color: Colors.white)
-                      : const FaIcon(FontAwesomeIcons.feather, color: Colors.pinkAccent),
+                      ? const FaIcon(FontAwesomeIcons.check,
+                          color: Colors.white)
+                      : const FaIcon(FontAwesomeIcons.feather,
+                          color: Colors.pinkAccent),
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: quiz.done ? Colors.white : Colors.pinkAccent,
-                    backgroundColor: quiz.done ? Colors.green : Colors.white
-                  ),
+                      foregroundColor:
+                          quiz.done ? Colors.white : Colors.pinkAccent,
+                      backgroundColor: quiz.done ? Colors.green : Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      )),
                   onPressed: () {
                     if (!quiz.done) {
                       Navigator.push(
