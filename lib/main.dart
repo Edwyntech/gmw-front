@@ -49,25 +49,40 @@ class _HomePageWidgetState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            opacity: 0.3,
-            image: NetworkImage("assets/assets/images/w1.png"),
-            fit: BoxFit.contain,
-            alignment: Alignment.topCenter,
+      body: SafeArea(
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              opacity: 0.3,
+              image: NetworkImage("assets/assets/images/w1.png"),
+              fit: BoxFit.contain,
+              alignment: Alignment.center, // Center the background image
+            ),
           ),
-        ),
-        margin: const EdgeInsets.all(40),
-        child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              buildFirstNameTextField(),
-              buildLastNameTextField(),
-              buildEmailTextField(),
-              buildAcceptEmailSharingCheckbox(),
-              buildStartButton(),
+              Expanded(
+                child: Center( // Center the form
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          buildFirstNameTextField(),
+                          buildLastNameTextField(),
+                          buildEmailTextField(),
+                          buildAcceptEmailSharingCheckbox(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: buildStartButton(),
+              ),
             ],
           ),
         ),
@@ -182,14 +197,12 @@ class _HomePageWidgetState extends State<HomePage> {
   }
 
   Widget buildStartButton() {
-    return Container(
-      margin: const EdgeInsets.only(top: 40),
-      child: ElevatedButton.icon(
-        onPressed: !firstValidation && isEmailValid && hasAcceptEmailSharing ? startButtonPressed : null,
-        icon: const FaIcon(FontAwesomeIcons.circlePlay,
-            color: Colors.pinkAccent),
-        label: const Text('Commencer'),
-      ),
+    return ElevatedButton.icon(
+      onPressed: !firstValidation && isEmailValid && hasAcceptEmailSharing
+          ? startButtonPressed
+          : null,
+      icon: const FaIcon(FontAwesomeIcons.circlePlay, color: Colors.pinkAccent),
+      label: const Text('Commencer'),
     );
   }
 
