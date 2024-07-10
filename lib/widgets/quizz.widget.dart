@@ -144,7 +144,7 @@ class _QuizzWidgetState extends State<QuizzWidget> {
             padding: const EdgeInsets.all(16.0),
             child: IconButton(
               icon: const FaIcon(FontAwesomeIcons.circleChevronRight),
-              color: Colors.pinkAccent,
+              color: Colors.deepOrangeAccent,
               onPressed: hasBeenValidated ? navigateToNextQuestionOrScore : null,
             ),
           ),

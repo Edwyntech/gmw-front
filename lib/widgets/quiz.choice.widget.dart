@@ -91,10 +91,10 @@ class _QuizChoiceWidgetState extends State<QuizChoiceWidget> {
                       ? const FaIcon(FontAwesomeIcons.check,
                           color: Colors.white)
                       : const FaIcon(FontAwesomeIcons.feather,
-                          color: Colors.pinkAccent),
+                          color: Colors.deepOrangeAccent),
                   style: ElevatedButton.styleFrom(
                       foregroundColor:
-                          quiz.done ? Colors.white : Colors.pinkAccent,
+                          quiz.done ? Colors.white : Colors.deepOrange,
                       backgroundColor: quiz.done ? Colors.green : Colors.white,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 15),

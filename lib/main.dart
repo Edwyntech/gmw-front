@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'GMW',
       theme: ThemeData(
-        colorSchemeSeed: Colors.pinkAccent,
+        colorSchemeSeed: Colors.deepOrange,
         useMaterial3: true,
         // primarySwatch: Colors.blue,
       ),
@@ -54,7 +54,7 @@ class _HomePageWidgetState extends State<HomePage> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               opacity: 0.3,
-              image: NetworkImage("assets/assets/images/w1.png"),
+              image: NetworkImage("assets/assets/images/w.png"),
               fit: BoxFit.contain,
               alignment: Alignment.center,
             ),
@@ -72,7 +72,7 @@ class _HomePageWidgetState extends State<HomePage> {
                           Text(
                             'Edwyn Quiz',
                             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                              color: Colors.pinkAccent,
+                              color: Colors.deepOrange,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -106,23 +106,23 @@ class _HomePageWidgetState extends State<HomePage> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.pinkAccent.withOpacity(0.5)),
+          borderSide: BorderSide(color: Colors.black87),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.pinkAccent.withOpacity(0.5)),
+          borderSide: BorderSide(color: Colors.black87),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.pinkAccent),
+          borderSide: BorderSide(color: Colors.black87),
         ),
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),
         labelText: label,
-        labelStyle: TextStyle(color: Colors.pinkAccent),
+        labelStyle: TextStyle(color: Colors.black87),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
       ),
-      style: TextStyle(color: Colors.black87),
+      style: TextStyle(color: Colors.black),
       onChanged: onChanged,
     );
   }
@@ -139,25 +139,25 @@ class _HomePageWidgetState extends State<HomePage> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.pinkAccent.withOpacity(0.5)),
+          borderSide: BorderSide(color: Colors.black87),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.pinkAccent.withOpacity(0.5)),
+          borderSide: BorderSide(color: Colors.black87),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.pinkAccent),
+          borderSide: BorderSide(color: Colors.black87),
         ),
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),
         labelText: 'Email',
-        labelStyle: TextStyle(color: Colors.pinkAccent),
+        labelStyle: TextStyle(color: Colors.black87),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         errorText: isEmailValid ? null : 'Email format is not valid',
         errorStyle: TextStyle(color: Colors.red),
       ),
-      style: TextStyle(color: Colors.black87),
+      style: TextStyle(color: Colors.black),
       onChanged: (value) {
         setState(() {
           firstValidation = false;
@@ -191,7 +191,7 @@ class _HomePageWidgetState extends State<HomePage> {
           Text(
             'I accept sharing this email',
             style: TextStyle(
-              color: isCheckboxValid ? Theme.of(context).textTheme.bodyMedium?.color : Theme.of(context).colorScheme.error,
+              color: isCheckboxValid ? TextStyle(color: Colors.black87).color : Theme.of(context).colorScheme.error,
             ),
           ),
         ],
@@ -205,7 +205,7 @@ class _HomePageWidgetState extends State<HomePage> {
       icon: const FaIcon(FontAwesomeIcons.circlePlay, color: Colors.white),
       label: const Text('Commencer', style: TextStyle(color: Colors.white)),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.pinkAccent,
+        backgroundColor: Colors.deepOrangeAccent,
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
