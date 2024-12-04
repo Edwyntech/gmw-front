@@ -6,11 +6,11 @@ import '../models/quiz.model.dart';
 import '../models/user-add.model.dart';
 
 class HttpServices {
-  static const String _baseUrl = "gmw.api.edwyn.info";
+  static const String _baseUrl = "localhost:8081";
 
   Future<List<Quiz>> getQuizList(String email) async {
     final queryParameters = {"email": email};
-    final url = Uri.https(_baseUrl, '/quizzes/user', queryParameters);
+    final url = Uri.http(_baseUrl, '/quizzes/user', queryParameters);
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -27,7 +27,7 @@ class HttpServices {
   }
 
   Future<bool> verifyAnswer(AnswerCheckModel answerCheckModel) async {
-    final url = Uri.https(_baseUrl, '/quizzes/verify');
+    final url = Uri.http(_baseUrl, '/quizzes/verify');
     final response = await http.post(url,
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(answerCheckModel.toJson()));
@@ -42,7 +42,7 @@ class HttpServices {
 
   Future<Score> getScore(String email, int quizId) async {
     final queryParameters = {"email": email, "quizId": quizId.toString()};
-    final url = Uri.https(_baseUrl, '/users/score', queryParameters);
+    final url = Uri.http(_baseUrl, '/users/score', queryParameters);
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final res = Score.fromJson(jsonDecode(response.body));
@@ -53,7 +53,7 @@ class HttpServices {
   }
 
   Future<int> addUser(UserAddModel userAddModel) async {
-    final url = Uri.https(_baseUrl, '/users');
+    final url = Uri.http(_baseUrl, '/users');
     final response = await http.post(url,
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(userAddModel.toJson()));
